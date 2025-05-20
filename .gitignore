@@ -1,0 +1,9 @@
+#Ignore Pythonv irtual environment
+venv/
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# VS Code settings
+.vscode/

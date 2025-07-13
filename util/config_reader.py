@@ -24,3 +24,11 @@ class ConfigReader:
         return list(map(lambda s: s.strip(), value[1:-1].split(",")))
     else:
       return str(value)
+
+# Updates the in-memory config with dynamic changes
+  def set(self, parameter, new_value):
+    if (isinstance(new_value, bool)):
+      value_string = "true" if new_value else "false"
+    else:
+      value_string = str(new_value)
+    self.config_parser.set("root", parameter, value_string)

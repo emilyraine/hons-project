@@ -3,8 +3,12 @@ from util.config_reader import ConfigReader
 from controller.base import BaseController
 from monitor.swarm import SwarmFitnessMonitor
 from monitor.behaviour import BehaviourMonitor
+from environment.blockObject import BlockObject 
+from environment.sinkholeObject import SinkholeObject
 
+current_time = 0
 def init(_config_filename: str, _run_id: str, _start_generation: int):
+  global current_time
   global config_filename
   global config
   global run_id
@@ -23,7 +27,12 @@ def init(_config_filename: str, _run_id: str, _start_generation: int):
   try:
     simulator = Pyroborobo.get() 
   except:
-    simulator = Pyroborobo.create(config_filename, controller_class=BaseController)
+    if (config.get("pDifficultLevel", "bool") == True): # Difficult Level (Dynamic Blocks)
+      simulator = Pyroborobo.create(config_filename, controller_class=BaseController, object_class_dict={'block': BlockObject})
+    elif (config.get("pMediumLevel", "bool") == True): # Medium Level (Dynamic Sinkholes)
+      simulator = Pyroborobo.create(config_filename, controller_class=BaseController, object_class_dict={'sinkhole': SinkholeObject})
+    else: # No Maze and Easy Level (No physical objects)
+      simulator = Pyroborobo.create(config_filename, controller_class=BaseController)
   simulator.start()
   fitness_monitor = SwarmFitnessMonitor(config.get("pSwarmFitnessAlgorithm", "str"))
   pen_behaviour_monitor = BehaviourMonitor("PEN_DISTANCE")

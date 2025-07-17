@@ -5,10 +5,13 @@ import util.globals as globals
 class BlockObject(SquareObject):
   def __init__(self, id, data):
     SquareObject.__init__(self, id)
-    lifetime_num = globals.config.get("pSimulationLifetime", "int")
-    self.one_quarter = 0.25*lifetime_num*5
-    self.half = 0.5*lifetime_num*5
-    self.three_quarters = 0.75*lifetime_num*5
+    simulation_lifetime = globals.config.get("pSimulationLifetime", "int")
+    population_size = globals.config.get("pPopulationSize", "int")
+    evaluation_trials = globals.config.get("pEvaluationTrials", "int")
+    total_steps_per_sim_square = (population_size/4)*simulation_lifetime*evaluation_trials
+    self.one_quarter = 0.25 * total_steps_per_sim_square
+    self.half = 0.5 * total_steps_per_sim_square
+    self.three_quarters = 0.75 * total_steps_per_sim_square
     self.hide()
     self.unregister()
     self.is_visible = False # Visibility status of block

@@ -15,8 +15,11 @@ class BaseController(Controller):
     else:
       self.controller = SheepController(self)
     
-    lifetime_num = globals.config.get("pSimulationLifetime", "int")
-    self.half = 0.5*lifetime_num*5
+    simulation_lifetime = globals.config.get("pSimulationLifetime", "int")
+    population_size = globals.config.get("pPopulationSize", "int")
+    evaluation_trials = globals.config.get("pEvaluationTrials", "int")
+    total_steps_per_sim_square = (population_size/4)*simulation_lifetime*evaluation_trials
+    self.half = 0.5 * total_steps_per_sim_square
     self.easy_bool = globals.config.get("pEasyLevel", "bool")
 
   def reset(self):

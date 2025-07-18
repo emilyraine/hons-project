@@ -6,12 +6,13 @@
 import util.globals as globals
 import util.categorise as categorise
 import numpy as np
+from environment.sinkholeObject import SinkholeObject
 
 class RadarSensor:
 
   def __init__(self, agent, type, range, fov=(-180, 180)):
     self.agent = agent
-    self.type = type # wall, dog or sheep
+    self.type = type # wall, dog, sheep or sinkhole
     self.range = range # sensory radius in pixels
     self.fov = fov # tuple with max left angle and max right angle in degrees
 
@@ -36,6 +37,10 @@ class RadarSensor:
     if self.type == "wall":
       is_walls = self.agent.get_all_walls()
       distances = np.where(is_walls, distances, undetected_distance)
+    elif self.type == "sinkhole":
+      all_instances = self.agent.get_all_object_instances()
+      sinkhole_instances = [isinstance(physical_object, SinkholeObject) for physical_object in all_instances]
+      distances = np.where(sinkhole_instances, distances, undetected_distance)
     elif self.type == "dog":
       robot_ids = self.agent.get_all_robot_ids()
       distances = list(map(lambda i: distances[i] if categorise.is_dog(robot_ids[i]) else undetected_distance, range(len(robot_ids))))

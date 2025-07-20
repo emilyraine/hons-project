@@ -18,6 +18,9 @@ class SheepController:
     self.dog_sensor = RadarSensor(self.agent, "dog", self.sensor_range, self.sensor_fov)
     self.sheep_sensor = RadarSensor(self.agent, "sheep", self.sensor_range, self.sensor_fov)
     self.wall_sensor = RadarSensor(self.agent, "wall", self.sensor_range, self.sensor_fov)
+    if (globals.config.get("pMediumLevel", "bool") == True):
+      self.sinkhole_sensor = RadarSensor(self.agent, "sinkhole", self.sensor_range, self.sensor_fov)
+    self.dead = False # Set to True if sheep falls into a sinkhole
 
   def reset(self):
     pass
@@ -25,7 +28,7 @@ class SheepController:
   def step(self):
     # globals.individual_fitness_monitor.track(self.agent)
 
-    if self.agent.status == 0:
+    if self.agent.status == 0 or self.dead == True:
       self.agent.set_rotation(0)
       self.agent.set_translation(0)
       return
@@ -45,14 +48,24 @@ class SheepController:
     wall_distance, wall_angle = self.wall_sensor.detect(normalised=False)
     dog_distance, dog_angle = self.dog_sensor.detect(normalised=False)
     sheep_distance, sheep_angle = self.sheep_sensor.detect(normalised=False)
-
-    distances = [wall_distance, dog_distance, sheep_distance]
-    angles = [wall_angle, dog_angle, sheep_angle]
-    avoidances = [
-      globals.config.get("sWallAvoidanceRadius", "float"), 
-      globals.config.get("sDogAvoidanceRadius", "float"), 
-      globals.config.get("sSheepAvoidanceRadius", "float")
-    ]
+    if (globals.config.get("pMediumLevel", "bool") == True): 
+      sinkhole_distance, sinkhole_angle = self.sinkhole_sensor.detect(normalised=False)
+      distances = [wall_distance, dog_distance, sheep_distance, sinkhole_distance]
+      angles = [wall_angle, dog_angle, sheep_angle, sinkhole_angle]
+      avoidances = [
+        globals.config.get("sWallAvoidanceRadius", "float"), 
+        globals.config.get("sDogAvoidanceRadius", "float"), 
+        globals.config.get("sSheepAvoidanceRadius", "float"),
+        globals.config.get("sSinkholeAvoidanceRadius", "float")
+      ]
+    else:
+      distances = [wall_distance, dog_distance, sheep_distance]
+      angles = [wall_angle, dog_angle, sheep_angle]
+      avoidances = [
+        globals.config.get("sWallAvoidanceRadius", "float"), 
+        globals.config.get("sDogAvoidanceRadius", "float"), 
+        globals.config.get("sSheepAvoidanceRadius", "float")
+      ]
 
     # target zone avoidance (for CAPTURE task)
     if globals.config.get("pTaskEnvironment", "str") == "CAPTURE" and (dog_distance == -1 or dog_distance > avoidances[1]):
@@ -123,3 +136,9 @@ class SheepController:
       degrees, translation = convert.displacement_to_velocity(dx, dy)
       if translation != 0:
         self.agent.set_rotation(calculate.rotation_for_target_orientation(convert.orientation_to_degrees(self.agent.absolute_orientation), degrees, globals.config.get("sFlockingCoherence", "float")))
+
+  def remove(self):
+    self.dead = True
+    self.agent.set_translation(0)
+    self.agent.set_rotation(0)
+    self.agent.set_position(600, 600)

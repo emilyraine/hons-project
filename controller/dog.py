@@ -13,7 +13,6 @@ class DogController:
   def __init__(self, agent):
     self.agent = agent
     self.agent.set_color(*[255, 0, 0])
-    self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
     self.target_radius = globals.config.get("pTargetZoneRadius", "int")
     self.arena_width = globals.config.get("gArenaWidth", "int")
     self.arena_height = globals.config.get("gArenaHeight", "int")
@@ -22,14 +21,24 @@ class DogController:
     self.dog_sensor = RadarSensor(self.agent, "dog", self.sensor_range, self.sensor_fov)
     self.sheep_sensor = RadarSensor(self.agent, "sheep", self.sensor_range, self.sensor_fov)
     self.wall_sensor = RadarSensor(self.agent, "wall", self.sensor_range, self.sensor_fov)
+    if (globals.config.get("pEasyLevel", "bool") == False):
+      self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
+      self.max_target_distance = calculate.max_distance_from_target_zone(self.target_coords, self.target_radius, self.arena_width, self.arena_height)
+
+    if (globals.config.get("pMediumLevel", "bool") == True): # Add sinkhole sensor for Medium Level
+      self.sinkhole_sensor = RadarSensor(self.agent, "sinkhole", self.sensor_range, self.sensor_fov)
     self.network = NeuralNetwork(globals.config.get("dInputNodes", "int"), globals.config.get("dHiddenNodes", "int"), globals.config.get("dOutputNodes", "int"))
     self.genome = None
-    self.max_target_distance = calculate.max_distance_from_target_zone(self.target_coords, self.target_radius, self.arena_width, self.arena_height)
+    self.dead = False # Set to True if dog falls into a sinkhole
 
   def reset(self):
     pass
 
   def step(self):
+    if self.dead:
+      self.agent.set_translation(0)
+      self.agent.set_rotation(0)
+      return
     if globals.config.get("pSwarmFitnessAlgorithm", "str") == "MINGLE":
       globals.ds_interaction_monitor.track(self.agent)
     input = torch.FloatTensor(self.get_inputs().reshape((1, globals.config.get("dInputNodes", "int"))))
@@ -44,14 +53,29 @@ class DogController:
     wall_detection = self.wall_sensor.detect()
     dog_detection = self.dog_sensor.detect()
     sheep_detection = self.sheep_sensor.detect()
-    landmark_distance = 1 - (calculate.distance_from_target_zone(self.agent.absolute_position, self.target_coords, self.target_radius) / self.max_target_distance)
+    if (globals.config.get("pEasyLevel", "bool") == True):
+      current_target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
+      max_target_distance = calculate.max_distance_from_target_zone(current_target_coords, self.target_radius, self.arena_width, self.arena_height)
+      landmark_distance = 1 - (calculate.distance_from_target_zone(self.agent.absolute_position, current_target_coords, self.target_radius) / max_target_distance)
+    else:
+      landmark_distance = 1 - (calculate.distance_from_target_zone(self.agent.absolute_position, self.target_coords, self.target_radius) / self.max_target_distance)
     landmark_angle = self.agent.get_closest_landmark_orientation()
     landmark_detection = [landmark_distance, landmark_angle]
-    return np.concatenate((bias, wall_detection, dog_detection, sheep_detection, landmark_detection))
+    if (globals.config.get("pMediumLevel", "bool") == True):
+      sinkhole_detection = self.sinkhole_sensor.detect()
+      return np.concatenate((bias, wall_detection, dog_detection, sheep_detection, sinkhole_detection, landmark_detection))
+    else:
+      return np.concatenate((bias, wall_detection, dog_detection, sheep_detection, landmark_detection))
 
   def set_genome(self, genome):
     self.genome = genome
     self.network.set_weights(genome)
+  
+  def remove(self):
+    self.dead = True
+    self.agent.set_translation(0)
+    self.agent.set_rotation(0)
+    self.agent.set_position(600, 600)
 
 
 class NeuralNetwork(nn.Module):

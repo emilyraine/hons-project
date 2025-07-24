@@ -30,9 +30,29 @@ class BaseController(Controller):
     if self.get_id() == 1:
       # For Easy Level: Target zone switches corners mid-simulation
       if (globals.current_time == self.half and self.easy_bool and self.target_switched == False):
-        globals.config.set("pTargetZoneCoordX", 491)              # Set gathering pen x-coordinate (bottom-right corner)
-        globals.config.set("pTargetZoneCoordY", 488)              # Set gathering pen y-coordinate (bottom-right corner)
-        globals.simulator.landmarks[0].set_coordinates(491,488)   # Update landmark to new coordinates
+        simulator = Pyroborobo.get()
+        number_of_robots = globals.config.get("gInitialNumberOfRobots", "int")
+        number_of_dogs = globals.config.get("pNumberOfDogs", "int")
+        sheep_start_id = number_of_dogs
+        sheep_end_id = number_of_robots - 1
+        new_x = 491
+        new_y = 488
+        target_zone_radius = globals.config.get("pTargetZoneRadius", "int") + 2
+
+        # Move sheep that are in the new target zone area right before the target zone moves
+        for sheep_id in range(sheep_start_id, sheep_end_id):
+          base_controller = simulator.controllers[sheep_id]
+          inner_controller = base_controller.controller  # Sheep controller
+          robot_x = inner_controller.agent.absolute_position[0]
+          robot_y = inner_controller.agent.absolute_position[1]
+          distance_x = robot_x - new_x
+          distance_y = robot_y - new_y
+          if ((distance_x * distance_x + distance_y * distance_y) <= (target_zone_radius * target_zone_radius)):
+            inner_controller.agent.set_position(460, 325) 
+
+        globals.config.set("pTargetZoneCoordX", new_x)              # Set gathering pen x-coordinate (bottom-right corner)
+        globals.config.set("pTargetZoneCoordY", new_y)              # Set gathering pen y-coordinate (bottom-right corner)
+        globals.simulator.landmarks[0].set_coordinates(new_x,new_y)   # Update landmark to new coordinates
         self.target_switched = True
 
       globals.fitness_monitor.track()

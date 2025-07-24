@@ -17,8 +17,9 @@ def execute(population: list, config_filename: str, run_id: int, nb_generations:
   process_output.clear()
   portions = apportion(population, nb_processes)
   for i in range(nb_processes):
-    is_homogenous = config.get("pEvolutionAlgorithm", "str").endswith("HOM")
-    is_allocation = config.get("pEvolutionAlgorithm", "str").startswith("A")
+    algorithm = config.get("pEvolutionAlgorithm", "str")
+    is_homogenous = algorithm.endswith("HOM") or algorithm.startswith(("D", "NS"))
+    is_allocation = algorithm.startswith("A")
     process = IndividualEvaluator(i, config_filename, run_id, start_generation, portions[i], process_output, is_homogenous, is_allocation)
     processes.append(process)
     process.start()
@@ -135,10 +136,28 @@ class IndividualEvaluator(multiprocessing.Process):
         x = random.randint(padding, arena_width - padding)
         y = random.randint(padding, arena_height - padding)
         if pen_spawning or calculate.distance_from_target_zone([x, y], pen_coords, pen_radius) > 0:
-          controller.set_position(x, y)
-          break
+          if (globals.config.get("pMediumLevel", "bool") == True):
+            in_sinkhole = self.in_sinkhole(x,y)
+            if not in_sinkhole:
+              controller.set_position(x, y)
+              break
+          else:
+            controller.set_position(x, y)
+            break
     # reset monitors
     globals.fitness_monitor.reset()
     globals.pen_behaviour_monitor.reset()
     globals.dog_behaviour_monitor.reset()
     globals.sheep_behaviour_monitor.reset()
+
+  def in_sinkhole(self, robot_x, robot_y):
+    num_sinkholes = globals.config.get("gNumberOfSinkholes", "int")    
+    for sinkhole in range(num_sinkholes):
+      sinkhole_x = globals.config.get(f"physicalObject[{sinkhole}].x", "int")             # x-coordinate of centre of sinkhole
+      sinkhole_y = globals.config.get(f"physicalObject[{sinkhole}].y", "int")             # y-coordinate of centre of sinkhole
+      sinkhole_radius = globals.config.get(f"physicalObject[{sinkhole}].radius", "int") + 2   # radius of sinkhole (+ 2 to prevent robots spawning right on the edge)
+      distance_x = (robot_x - sinkhole_x)
+      distance_y = (robot_y - sinkhole_y)
+      if ((distance_x * distance_x + distance_y * distance_y) <= (sinkhole_radius * sinkhole_radius)):
+        return True
+    return False

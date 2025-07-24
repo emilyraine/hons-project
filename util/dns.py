@@ -6,14 +6,10 @@ import math
 
 def dns_select(population, pop_size, k):
     # All fitness values and descriptor lists
-    fitnesses = []
-    descriptors = []
-    for individual in population:
-        fitness_value = individual.fitness.values[0]
-        fitnesses.append(fitness_value)
-        descriptor_list = individual.features
-        descriptors.append(descriptor_list)
     
+    descriptors = [individual.features for individual in population]
+    fitnesses = [individual.fitness.values[0] for individual in population]
+
     num_individuals = len(population) 
     dns_scores = [0.0] * num_individuals
     

@@ -34,6 +34,7 @@ class IndividualFitnessMonitor:
 class RegularCountFitnessMonitor:
 
   def __init__(self):
+    self.is_easy = globals.config.get("pEasyLevel", "bool")
     self.dogs = categorise.get_dogs()
     self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
     self.target_radius = globals.config.get("pTargetZoneRadius", "int")
@@ -92,6 +93,8 @@ class RegularCountFitnessMonitor:
     if sheep_id in self.tracking and dog_id in self.tracking[sheep_id]:
       start_coords = self.tracking[sheep_id][dog_id]["start"]
       end_coords = self.tracking[sheep_id][dog_id]["last"]
+      if (self.is_easy == True):
+        self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
       start_dist = calculate.distance_from_target_zone(start_coords, self.target_coords, self.target_radius)
       end_dist = calculate.distance_from_target_zone(end_coords, self.target_coords, self.target_radius)
       if start_dist > end_dist:
@@ -126,6 +129,7 @@ class RegularCountFitnessMonitor:
 class SuperCountFitnessMonitor:
 
   def __init__(self):
+    self.is_easy = globals.config.get("pEasyLevel", "bool")
     self.dogs = categorise.get_dogs()
     self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
     self.target_radius = globals.config.get("pTargetZoneRadius", "int")
@@ -188,6 +192,8 @@ class SuperCountFitnessMonitor:
     if sheep_id in self.tracking and dog_id in self.tracking[sheep_id]:
       start_coords = self.tracking[sheep_id][dog_id]["start"]
       end_coords = self.tracking[sheep_id][dog_id]["last"]
+      if (self.is_easy == True):
+        self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
       start_dist = calculate.distance_from_target_zone(start_coords, self.target_coords, self.target_radius)
       end_dist = calculate.distance_from_target_zone(end_coords, self.target_coords, self.target_radius)
       if start_dist > end_dist:
@@ -246,6 +252,7 @@ class SuperCountFitnessMonitor:
 class SuperDistanceFitnessMonitor:
 
   def __init__(self):
+    self.is_easy = globals.config.get("pEasyLevel", "bool")
     self.dogs = categorise.get_dogs()
     self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
     self.target_radius = globals.config.get("pTargetZoneRadius", "int")
@@ -314,6 +321,8 @@ class SuperDistanceFitnessMonitor:
     if sheep_id in self.tracking and dog_id in self.tracking[sheep_id]:
       start_coords = self.tracking[sheep_id][dog_id]["start"]
       end_coords = self.tracking[sheep_id][dog_id]["last"]
+      if (self.is_easy == True):
+        self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
       start_dist = calculate.distance_from_target_zone(start_coords, self.target_coords, self.target_radius)
       end_dist = calculate.distance_from_target_zone(end_coords, self.target_coords, self.target_radius)
       diff_dist = abs(start_dist - end_dist)

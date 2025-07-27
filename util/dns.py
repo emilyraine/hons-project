@@ -6,7 +6,6 @@ import math
 
 def dns_select(population, pop_size, k):
     # All fitness values and descriptor lists
-    
     descriptors = [individual.features for individual in population]
     fitnesses = [individual.fitness.values[0] for individual in population]
 

@@ -42,6 +42,9 @@ class RegularCountFitnessMonitor:
     self.history = {}
     self.p_max = 1
     self.n_max = 1
+    self.speed_max = 1.0
+    self.sensorRange_max = 1
+    self.sensorFOV_max = 1
 
   def report(self):
     for dog in self.dogs:
@@ -51,15 +54,26 @@ class RegularCountFitnessMonitor:
         history = {'p': 0, 'n': 0}
       print("Dog #" + str(dog.id) + ": History = " + str(history) + ", Fitness = " + str(self.score(dog)))
 
+#p: number of positive movements(towards target zone)
+#n: number of negative movements(away from target zone)
   def score(self, dog):
     if dog.id in self.history:
       p = self.history[dog.id]["p"]
       n = self.history[dog.id]["n"]
       # Fi = (1 + P / Pmax - N / Nmax) / 2
-      return (1 + (p / self.p_max) - (n / self.n_max)) / 2
+      behaviour_fitness = (1 + (p / self.p_max) - (n / self.n_max)) / 2
     else:
-      return 0.5
+      behaviour_fitness = 0.5
+    morphology_params = dog.morphology.normalise()
+    speed = morphology_params['max_translation_speed']
+    sensor_range = morphology_params['sensor_range']
+    fov = morphology_params['sensor_fov']
+    #need to implement energy usage
+    #storing morph params in history necessary ?
+    morphological_fitness = ( (speed/self.speed_max) + (sensor_range/self.sensorRange_max) + (fov[0]/self.sensorFOV_max) + (fov[1]/self.sensorFOV_max) ) / 4
 
+    return (behaviour_fitness + morphological_fitness) / 2
+    
   def avg_score(self):
     total_fitness = 0
     for dog in self.dogs:

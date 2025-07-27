@@ -10,7 +10,7 @@ import pickle
 import random
 import sys
 import os
-import util.mapelites as mapelites
+import util.mapelites as mapelitesl,
 import process.aggregate_archive as agga
 import process.plot_solutions as plts
 import process.plot_fitness as pltf
@@ -48,11 +48,13 @@ if __name__ == "__main__":
         START_GENERATION = CHECKPOINT["gen"] + 1
       CONFIG = ConfigReader(CONFIG_FILENAME)
     
-      # get neural network dimensions 
+      # get neural network dimensions (increased genome size for morphological parameter inclusion)
       NB_INPUTS = CONFIG.get("dInputNodes", "int")
       NB_HIDDENS = CONFIG.get("dHiddenNodes", "int")
       NB_OUTPUTS = CONFIG.get("dOutputNodes", "int")
-      GENOME_SIZE = (NB_INPUTS * NB_HIDDENS) + (NB_HIDDENS * NB_OUTPUTS)
+      NEURAL_WEIGHTS_SIZE = (NB_INPUTS * NB_HIDDENS) + (NB_HIDDENS * NB_OUTPUTS)
+      MORPHOLOGY_SIZE = 4
+      GENOME_SIZE = NEURAL_WEIGHTS_SIZE + MORPHOLOGY_SIZE
       if CONFIG.get("pEvolutionAlgorithm", "str").startswith("A"):
         GENOME_SIZE = CONFIG.get("pNumberOfDogs", "int")
         ARCHIVE_FILENAME = CONFIG.get("pSolutionArchiveFilename", "str")
@@ -67,14 +69,66 @@ if __name__ == "__main__":
       if CONFIG.get("pEvolutionAlgorithm", "str").startswith("A"):
         toolbox.register("attribute", random.randint, a=0, b=len(CONTROLLERS)-1)
       else:
-        toolbox.register("attribute", random.uniform, a=-1, b=1)
-      toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attribute, n=GENOME_SIZE)
+        # toolbox.register("attribute", random.uniform, a=-1, b=1)
+        def init_individual(icls):
+          weights = [random.uniform(-1, 1) for _ in range(NEURAL_WEIGHTS_SIZE)]
+          morphology = [
+            random.uniform(0, 1), # max_translation_speed
+            random.uniform(0, 1), # sensor_range
+            random.uniform(0, 1), # sensor_fov_left
+            random.uniform(0, 1)  # sensor_fov_right
+          ]
+          return icls(weights + morphology)
+      toolbox.register("individual", init_individual, creator.Individual)
       toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-      toolbox.register("mate", tools.cxTwoPoint)
+
+      # toolbox.register("mate", tools.cxTwoPoint)
+      # custom morphology crossover 
+      def crossover_morphology(individual1, individual2):
+        operation = random.choice(["exchange", "average"])
+        i1 = int(random.uniform(NEURAL_WEIGHTS_SIZE, len(individual1) - 1))
+        i2 = int(random.uniform(NEURAL_WEIGHTS_SIZE, len(individual2) - 1))
+        if operation == "exchange":
+          individual1[i1], individual2[i2] = individual2[i2], individual1[i1]
+        elif operation == "average":
+          avg = (individual1[i1] + individual2[i2]) / 2
+          individual1[i1], individual2[i2] = avg, avg
+        return individual1, individual2
+        
+      # neural weight crossover using DEAP  
+      def crossover_weights(individual1, individual2):
+        tools.cxTwoPoint(individual1, individual2)
+        return individual1, individual2
+
+      # combined crossover operator
+      def crossover_individuals(individual1, individual2):
+        crossover_weights(individual1[:NEURAL_WEIGHTS_SIZE], individual2[:NEURAL_WEIGHTS_SIZE])
+        crossover_morphology(individual1, individual2)
+        return individual1, individual2
+      toolbox.register("mate", crossover_individuals)
+
       if CONFIG.get("pEvolutionAlgorithm", "str").startswith("A"):
         toolbox.register("mutate", tools.mutUniformInt, low=0, up=len(CONTROLLERS)-1, indpb=0.1)
       else:
-        toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.05)
+        # neural weight mutation using DEAP
+        def mutate_weights(individual):
+          individual = tools.mutGaussian(individual[:NEURAL_WEIGHTS_SIZE], mu=0, sigma=1, indpb=0.05)
+          return individual[0:NEURAL_WEIGHTS_SIZE]
+
+        # custom morphology mutation
+        def mutate_morphology(individual):
+          i = int(random.uniform(NEURAL_WEIGHTS_SIZE, len(individual) - 1))
+          individual[i] += random.gauss(0, 0.5)
+          individual[i] = max(0, min(1, individual[i]))
+          return individual[NEURAL_WEIGHTS_SIZE:]
+
+        # combined mutation operator
+        def mutate_individual(individual):
+          mutate_weights(individual)
+          mutate_morphology(individual) 
+          return individual
+        
+        toolbox.register("mutate", mutate_individual)
       toolbox.register("select", tools.selTournament, tournsize=3)
       toolbox.register("evaluate", evaluator.execute)
 
@@ -229,15 +283,19 @@ if __name__ == "__main__":
 
     # apply mutation on the offspring
     for mutant in offspring:
-      if random.random() < CONFIG.get("pMutationProbability", "float"):
+      if random.random() < CONFIG.get("pMutationProbability", "float"):#im doing a mutation probability in the morphology mutation operator too so change that if results r looking
         toolbox.mutate(mutant)
         del mutant.fitness.values
 
     # evaluate all individuals
     fitnesses = toolbox.evaluate(offspring, CONFIG_FILENAME, RUN_ID, NB_GENERATIONS, START_GENERATION, generation)
     for ind, fit in zip(offspring, fitnesses):
-      ind.fitness.values = fit[0]
-      ind.features = fit[1]
+      if isinstance(fit, tuple) and len(fit) == 2:
+        ind.fitness.values = fit[0]
+        ind.features = fit[1]
+      else:
+        ind.fitness.values = fit
+        ind.features = None
 
     # update the MAP-Elites grid or replace population with offspring
     if CONFIG.get("pEvolutionAlgorithm", "str").startswith("M"):

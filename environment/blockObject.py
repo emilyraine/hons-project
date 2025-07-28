@@ -9,6 +9,7 @@ class BlockObject(SquareObject):
     simulation_lifetime = globals.config.get("pSimulationLifetime", "int")
     population_size = globals.config.get("pPopulationSize", "int")
     evaluation_trials = globals.config.get("pEvaluationTrials", "int")
+    # Calculate total steps for each simulation window, adjusting for parallelism (CPU count)
     total_steps_per_sim_square = (population_size/multiprocessing.cpu_count())*simulation_lifetime*evaluation_trials
     self.one_quarter = 0.25 * total_steps_per_sim_square
     self.half = 0.5 * total_steps_per_sim_square

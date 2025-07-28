@@ -30,7 +30,7 @@ class DogController:
 
     #Load environment image once for all dogs
     if not hasattr(DogController, "env_img"):
-        env_img_path = globals.config.get("gEnvironmentImageFilename", "str")
+        env_img_path = globals.config.get("gForegroundImageFilename", "str")
         DogController.env_img = Image.open(env_img_path).convert("RGB")
         DogController.env_img_width, DogController.env_img_height = DogController.env_img.size
     #Ice and mud RGB values (used to detect if dog is on ice/mud pixel)
@@ -38,15 +38,22 @@ class DogController:
     DogController.MUD_RGB = (120, 67, 21)
 
   def reset(self):
+    self.morphology.energy = globals.config.get("dMaxEnergy", "float")
     pass
 
   def step(self):
     if globals.config.get("pSwarmFitnessAlgorithm", "str") == "MINGLE":
       globals.ds_interaction_monitor.track(self.agent)
+
+    if self.morphology.energy <= 0:
+        self.agent.set_translation(0)
+        self.agent.set_rotation(0)
+        return
+
     input = torch.FloatTensor(self.get_inputs().reshape((1, globals.config.get("dInputNodes", "int"))))
     output = self.network(input)
 
-    #Get agent position in image coordinates
+    #check if ice or mud pixel
     x, y = int(self.agent.absolute_position[0]), int(self.agent.absolute_position[1])
     x = max(0, min(x, DogController.env_img_width - 1))
     y = max(0, min(y, DogController.env_img_height - 1))
@@ -58,15 +65,26 @@ class DogController:
     rotation = output[0,1]
 
     if on_ice:
-        #add random slip to rotation and reduce speed
-        ice_factor = 0.25
+        #add slip(rotation) and reduce speed
+        ice_factor = 0.75
         translation *= ice_factor
-        slip_angle = random.uniform(-0.25, 0.25)
-        rotation += slip_angle
+        if random.random() < globals.config.get("pIceSlipProbability", "float"):
+          slip_angle = globals.config.get("pIceSlipAngle", "float")
+          rotation += slip_angle
     elif on_mud:
         #reduce speed only
-        mud_factor = 0.5
+        mud_factor = 0.60
         translation *= mud_factor
+
+    #calculate energy used
+    speed = self.morphology.max_translation_speed
+    sensor_range = self.morphology.sensor_range
+    fov = self.morphology.sensor_fov
+    # energy cost per step: weighted sum
+    energy_cost = (globals.config.get("pSpeedCostCoefficient", "float") * (abs(speed)/2)) + (globals.config.get("pSensorRangeCostCoefficient", "float") * (sensor_range/100.0)) + (globals.config.get("pFOVCostCoefficient", "float") * ((abs(fov[0]) + abs(fov[1]))/360))
+    self.morphology.energy -= energy_cost
+    if self.morphology.energy < 0:
+        self.morphology.energy = 0
 
     rotation = max(-1.0, min(1.0, rotation))
     self.agent.set_translation(translation)
@@ -133,6 +151,7 @@ class DogMorphology:
             self.max_translation_speed = max_translation_speed
             self.sensor_range = sensor_range
             self.sensor_fov = sensor_fov
+        self.energy = globals.config.get("dMaxEnergy", "float")
 
     @staticmethod
     def denormalise_from_genome(genome_segment):

@@ -10,7 +10,7 @@ import pickle
 import random
 import sys
 import os
-import util.mapelites as mapelitesl,
+import util.mapelites as mapelites
 import process.aggregate_archive as agga
 import process.plot_solutions as plts
 import process.plot_fitness as pltf

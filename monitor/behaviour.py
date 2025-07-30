@@ -14,6 +14,10 @@ class BehaviourMonitor:
     else:
       raise Exception("Unsupported monitor type for behaviour monitoring")
 
+  def refresh(self):
+    if hasattr(self.monitor, "refresh"):
+      self.monitor.refresh()
+
   def track(self):
     self.monitor.track()
 
@@ -36,6 +40,10 @@ class PenDistanceBehaviourMonitor:
     self.arena_height = globals.config.get("gArenaHeight", "int")
     self.max_target_distance = calculate.max_distance_from_target_zone(self.target_coords, self.target_radius, self.arena_width, self.arena_height) / 1.25 # practical max is 0.4 +/- 0.2 of theoretical max
     self.history = []
+
+  def refresh(self):
+    self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
+    self.max_target_distance = calculate.max_distance_from_target_zone(self.target_coords, self.target_radius, self.arena_width, self.arena_height) / 1.25 # practical max is 0.4 +/- 0.2 of theoretical max
 
   def track(self):
     dogs = categorise.get_dogs()
@@ -67,7 +75,7 @@ class DogDistanceBehaviourMonitor:
     self.max_distance = calculate.max_distance_between_points(self.arena_width, self.arena_height) / 10 # practical max is 0.06 +/- 0.03 of theoretical max
     self.history = []
 
-  def track(self):
+  def track(self): #check works with sinkhole level
     dogs = categorise.get_dogs()
     total_distance = 0.0
     for dogA in dogs:

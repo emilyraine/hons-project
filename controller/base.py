@@ -46,6 +46,8 @@ class BaseController(Controller):
         globals.config.set("pTargetZoneCoordY", new_y)              # Set gathering pen y-coordinate (bottom-right corner)
         globals.simulator.landmarks[0].set_coordinates(new_x,new_y)   # Update landmark to new coordinates
         globals.pen_behaviour_monitor.refresh()
+        for dog in categorise.get_dogs():
+          dog.controller.refresh()
         self.target_switched = True
 
       globals.fitness_monitor.track()

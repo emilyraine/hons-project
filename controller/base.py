@@ -1,9 +1,10 @@
+import multiprocessing
 from pyroborobo import Pyroborobo, Controller
 import util.globals as globals
 from controller.dog import DogController
 from controller.sheep import SheepController
 import util.categorise as categorise
-
+import util.calculate as calculate
 
 class BaseController(Controller):
 
@@ -18,7 +19,8 @@ class BaseController(Controller):
     simulation_lifetime = globals.config.get("pSimulationLifetime", "int")
     population_size = globals.config.get("pPopulationSize", "int")
     evaluation_trials = globals.config.get("pEvaluationTrials", "int")
-    total_steps_per_sim_square = (population_size/4)*simulation_lifetime*evaluation_trials
+    # Calculate total steps for each simulation window, adjusting for parallelism (CPU count)
+    total_steps_per_sim_square = (population_size/multiprocessing.cpu_count())*simulation_lifetime*evaluation_trials
     self.half = 0.5 * total_steps_per_sim_square
     self.easy_bool = globals.config.get("pEasyLevel", "bool")
 
@@ -30,25 +32,15 @@ class BaseController(Controller):
     if self.get_id() == 1:
       # For Easy Level: Target zone switches corners mid-simulation
       if (globals.current_time == self.half and self.easy_bool and self.target_switched == False):
-        simulator = Pyroborobo.get()
-        number_of_robots = globals.config.get("gInitialNumberOfRobots", "int")
-        number_of_dogs = globals.config.get("pNumberOfDogs", "int")
-        sheep_start_id = number_of_dogs
-        sheep_end_id = number_of_robots - 1
         new_x = 491
         new_y = 488
         target_zone_radius = globals.config.get("pTargetZoneRadius", "int") + 2
 
-        # Move sheep that are in the new target zone area right before the target zone moves
-        for sheep_id in range(sheep_start_id, sheep_end_id):
-          base_controller = simulator.controllers[sheep_id]
-          inner_controller = base_controller.controller  # Sheep controller
-          robot_x = inner_controller.agent.absolute_position[0]
-          robot_y = inner_controller.agent.absolute_position[1]
-          distance_x = robot_x - new_x
-          distance_y = robot_y - new_y
-          if ((distance_x * distance_x + distance_y * distance_y) <= (target_zone_radius * target_zone_radius)):
-            inner_controller.agent.set_position(460, 325) 
+        # Move sheep from the area where the target zone will appear
+        for sheep in categorise.get_sheep():
+          buffer = 8
+          if (calculate.distance_between_points(sheep.absolute_position, (new_x, new_y)) <= (target_zone_radius + buffer)):
+            sheep.set_position(460, 325) 
 
         globals.config.set("pTargetZoneCoordX", new_x)              # Set gathering pen x-coordinate (bottom-right corner)
         globals.config.set("pTargetZoneCoordY", new_y)              # Set gathering pen y-coordinate (bottom-right corner)

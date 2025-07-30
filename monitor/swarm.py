@@ -31,6 +31,9 @@ class SwarmFitnessMonitor:
   def reset(self):
     self.monitor.reset()
 
+  def refresh(self):
+    if hasattr(self.monitor, "refresh"):
+      self.monitor.refresh()
 
 class CountFitnessMonitor:
 
@@ -71,15 +74,14 @@ class MingleFitnessMonitor:
     ) - self.target_radius # distance from furthest arena corner to target zone border
 
 
-  def refresh_for_easy_level(self, need_max_distance):
+  def refresh(self):
     self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
-    if need_max_distance:
-      self.max_distance = max(
-        calculate.distance_between_points([0, 0], self.target_coords),
-        calculate.distance_between_points([0, self.arena_height], self.target_coords),
-        calculate.distance_between_points([self.arena_width, 0], self.target_coords),
-        calculate.distance_between_points([self.arena_width, self.arena_height], self.target_coords)
-      ) - self.target_radius # distance from furthest arena corner to target zone border
+    self.max_distance = max(
+      calculate.distance_between_points([0, 0], self.target_coords),
+      calculate.distance_between_points([0, self.arena_height], self.target_coords),
+      calculate.distance_between_points([self.arena_width, 0], self.target_coords),
+      calculate.distance_between_points([self.arena_width, self.arena_height], self.target_coords)
+    ) - self.target_radius # distance from furthest arena corner to target zone border
 
   def report(self):
     print("Not implemented")
@@ -114,7 +116,6 @@ class MingleFitnessMonitor:
   def _score_interaction(self, interaction):
     start_coords = interaction["start"]["sheep"]["position"]
     end_coords = interaction["end"]["sheep"]["position"]
-    self.refresh_for_easy_level(False)
     start_distance = calculate.distance_from_target_zone(start_coords, self.target_coords, self.target_radius)
     end_distance = calculate.distance_from_target_zone(end_coords, self.target_coords, self.target_radius)
     start_actual_orientation = interaction["start"]["sheep"]["actual_orientation"]
@@ -127,7 +128,6 @@ class MingleFitnessMonitor:
     return (d_score + o_score + s_score) / 3
 
   def _score_distance_delta(self, start_coords, start_distance, end_coords, end_distance):
-    self.refresh_for_easy_level(True)
     best_delta = start_distance
     worst_delta = self.max_distance - start_distance
     if start_distance == 0:
@@ -146,7 +146,6 @@ class MingleFitnessMonitor:
 
   def _score_orientation_delta(self, start_coords, start_distance, start_actual_orientation, start_target_orientation, end_coords, end_distance, end_actual_orientation, end_target_orientation):
     start_offset_angle = calculate.inner_angle_between_orientations(start_actual_orientation, start_target_orientation)
-    self.refresh_for_easy_level(False)
     if start_distance == 0:
       start_tangent_angle = 90
     else:

@@ -11,6 +11,8 @@ import random
 import sys
 import os
 import util.mapelites as mapelites
+import util.dns as dns
+import util.nsslc as nsslc
 import process.aggregate_archive as agga
 import process.plot_solutions as plts
 import process.plot_fitness as pltf
@@ -77,6 +79,22 @@ if __name__ == "__main__":
         toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.05)
       toolbox.register("select", tools.selTournament, tournsize=3)
       toolbox.register("evaluate", evaluator.execute)
+
+      # DNS
+      if CONFIG.get("pEvolutionAlgorithm", "str").startswith("D"):
+        k_value = CONFIG.get("pKValue", "int")
+        toolbox.register("dns_select", dns.dns_select, k = k_value)
+
+      # NSS-LC
+      if CONFIG.get("pEvolutionAlgorithm", "str").startswith("NS"):
+        lmbda = CONFIG.get("pLambda", "float")
+        nLC = CONFIG.get("pnLC", "int")
+        nNS = CONFIG.get("pnNS", "int")
+        nSS = CONFIG.get("pnSS", "int")
+        h = CONFIG.get("pH", "int")
+        kSS = CONFIG.get("pkSS", "int")
+        toolbox.register("nsslc_select", nsslc.nsslc_select, lmbda = lmbda, nLC = nLC, nNS = nNS, nSS = nSS, h = h, kSS = kSS)
+
 
       # define statistics to track
       stats_fit = tools.Statistics(lambda ind: ind.fitness.values)
@@ -176,7 +194,7 @@ if __name__ == "__main__":
       elite = CHECKPOINT["hof"].items[0]
       manager = multiprocessing.Manager()
       process_output = manager.dict()
-      is_homogenous = CONFIG.get("pEvolutionAlgorithm", "str").endswith("HOM")
+      is_homogenous = CONFIG.get("pEvolutionAlgorithm", "str").endswith("HOM") or CONFIG.get("pEvolutionAlgorithm", "str").startswith(("D", "NS"))
       is_allocation = CONFIG.get("pEvolutionAlgorithm", "str").startswith("A")
       process = evaluator.IndividualEvaluator(0, TEMP_FILENAME, CHECKPOINT["rid"], 1, [elite], process_output, is_homogenous, is_allocation)
       process.start()
@@ -212,10 +230,19 @@ if __name__ == "__main__":
       print("Starting...", end="\r", flush=True)
 
     # select the next generation individuals
-    if CONFIG.get("pEvolutionAlgorithm", "str").startswith("M") and generation != 1:
-      offspring = toolbox.select(mapelites.grid, CONFIG.get("pPopulationSize", "int"))
+    chosen_algorithm = CONFIG.get("pEvolutionAlgorithm", "str")
+    population_size = CONFIG.get("pPopulationSize", "int")
+    if chosen_algorithm.startswith("M") and generation != 1:
+      offspring = toolbox.select(mapelites.grid, population_size)
+    elif chosen_algorithm.startswith(("D", "NS")): # DNS or NSS-LC
+      if generation == 1: # initial evaluation of fitness of population
+        fitnessesPop = toolbox.evaluate(population, CONFIG_FILENAME, RUN_ID, NB_GENERATIONS, START_GENERATION, generation)
+        for ind, fit in zip(population, fitnessesPop):
+          ind.fitness.values = fit[0]
+          ind.features = fit[1]
+      offspring = population
     else:
-      offspring = toolbox.select(population, CONFIG.get("pPopulationSize", "int"))
+      offspring = toolbox.select(population, population_size)
 
     # clone the selected individuals
     offspring = list(map(toolbox.clone, offspring))
@@ -242,6 +269,14 @@ if __name__ == "__main__":
     # update the MAP-Elites grid or replace population with offspring
     if CONFIG.get("pEvolutionAlgorithm", "str").startswith("M"):
       mapelites.grid.update(offspring)
+    elif chosen_algorithm.startswith("D"):
+      combined = population + offspring
+      selected = toolbox.dns_select(combined, population_size)
+      population[:] = selected
+    elif chosen_algorithm.startswith("NS"):
+      combined = population + offspring
+      selected = toolbox.nsslc_select(combined, population_size, generation)
+      population[:] = selected
     else:
       population[:] = offspring
 

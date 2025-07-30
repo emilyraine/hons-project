@@ -29,6 +29,11 @@ class IndividualFitnessMonitor:
 
   def reset(self):
     self.monitor.reset()
+  
+  # Call this in BaseController's step() for Easy level target zone switch, if IndividualFitnessMonitor is ever used
+  def refresh(self):
+    if hasattr(self.monitor, "refresh"):
+      self.monitor.refresh()
 
 
 class RegularCountFitnessMonitor:
@@ -43,6 +48,9 @@ class RegularCountFitnessMonitor:
     self.history = {}
     self.p_max = 1
     self.n_max = 1
+
+  def refresh(self):
+    self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
 
   def report(self):
     for dog in self.dogs:
@@ -140,6 +148,9 @@ class SuperCountFitnessMonitor:
     self.c_n = 10
     self.p_max = 1
     self.n_max = 1
+
+  def refresh(self):
+    self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
 
   def report(self):
     for dog in self.dogs:
@@ -263,6 +274,9 @@ class SuperDistanceFitnessMonitor:
     self.c_n = 100
     self.p_max = 0.00000001
     self.n_max = 0.00000001
+
+  def refresh(self):
+    self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
 
   def report(self):
     p_total = 0

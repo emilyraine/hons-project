@@ -60,7 +60,6 @@ class CountFitnessMonitor:
 class MingleFitnessMonitor:
 
   def __init__(self):
-    self.is_easy = globals.config.get("pEasyLevel", "bool")
     self.dogs = categorise.get_dogs()
     self.target_coords = [globals.config.get("pTargetZoneCoordX", "int"), globals.config.get("pTargetZoneCoordY", "int")]
     self.target_radius = globals.config.get("pTargetZoneRadius", "int")

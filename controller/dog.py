@@ -13,7 +13,6 @@ class DogController:
   def __init__(self, agent):
     self.agent = agent
     self.agent.set_color(*[255, 0, 0])
-    self.is_easy = globals.config.get("pEasyLevel", "bool")
     self.is_medium = globals.config.get("pMediumLevel", "bool")
     self.target_radius = globals.config.get("pTargetZoneRadius", "int")
     self.arena_width = globals.config.get("gArenaWidth", "int")

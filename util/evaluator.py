@@ -155,9 +155,7 @@ class IndividualEvaluator(multiprocessing.Process):
     for sinkhole in range(num_sinkholes):
       sinkhole_x = globals.config.get(f"physicalObject[{sinkhole}].x", "int")             # x-coordinate of centre of sinkhole
       sinkhole_y = globals.config.get(f"physicalObject[{sinkhole}].y", "int")             # y-coordinate of centre of sinkhole
-      sinkhole_radius = globals.config.get(f"physicalObject[{sinkhole}].radius", "int") + 2   # radius of sinkhole (+ 2 to prevent robots spawning right on the edge)
-      distance_x = (robot_x - sinkhole_x)
-      distance_y = (robot_y - sinkhole_y)
-      if ((distance_x * distance_x + distance_y * distance_y) <= (sinkhole_radius * sinkhole_radius)):
+      sinkhole_radius = globals.config.get(f"physicalObject[{sinkhole}].radius", "int")   # radius of sinkhole
+      if (calculate.distance_between_points((robot_x, robot_y), (sinkhole_x, sinkhole_y)) <= sinkhole_radius + 2): # (+ 2 to prevent robots spawning right on the edge)
         return True
     return False

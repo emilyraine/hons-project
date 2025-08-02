@@ -1,8 +1,8 @@
 #!/bin/bash
-#PBS -l select=1:ncpus=24
+#PBS -l select=1:ncpus=24:mem=120gb
 #PBS -P CSCI1142
 #PBS -q smp
-#PBS -l walltime=12:00:00
+#PBS -l walltime=11:00:00
 #PBS -o /mnt/lustre/users/eraine/jobs/ssga-e-nm-01_testing.out
 #PBS -e /mnt/lustre/users/eraine/jobs/ssga-e-nm-01_testing.err
 #PBS -m abe
@@ -23,6 +23,6 @@ nproc=`cat $PBS_NODEFILE | wc -l`
 echo nproc is $nproc
 cat $PBS_NODEFILE
 
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-easy_no-maze.properties ssga-e-nm-01_testing
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python -u run.py -s config/ssga/ssga-easy_no-maze.properties ssga-e-nm-01_testing
 
 conda deactivate

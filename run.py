@@ -92,8 +92,8 @@ if __name__ == "__main__":
         nNS = CONFIG.get("pnNS", "int")
         nSS = CONFIG.get("pnSS", "int")
         h = CONFIG.get("pH", "int")
-        kSS = CONFIG.get("pkSS", "int")
-        toolbox.register("nsslc_select", nsslc.nsslc_select, lmbda = lmbda, nLC = nLC, nNS = nNS, nSS = nSS, h = h, kSS = kSS)
+        timeout_limit = max(1, round(10 * (CONFIG.get("pSimulationGenerations", "int") / 600)))
+        toolbox.register("nsslc_select", nsslc.nsslc_select, lmbda = lmbda, nLC = nLC, nNS = nNS, nSS = nSS, h = h, timeout_limit = timeout_limit)
 
 
       # define statistics to track
@@ -275,7 +275,8 @@ if __name__ == "__main__":
       population[:] = selected
     elif chosen_algorithm.startswith("NS"):
       combined = population + offspring
-      selected = toolbox.nsslc_select(combined, population_size, generation)
+      kSS = 0.8 * len(combined) # number of behavioural clusters
+      selected = toolbox.nsslc_select(combined, population_size, generation, kSS)
       population[:] = selected
     else:
       population[:] = offspring

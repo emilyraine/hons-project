@@ -5,6 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=40
+#SBATCH --constraint=small
 #SBATCH --job-name="ssga-e-d-15"
 #SBATCH --output=/scratch/rnxemi001/jobs/ssga-e-d-15.out 
 #SBATCH --error=/scratch/rnxemi001/jobs/ssga-e-d-15.err 
@@ -20,9 +21,8 @@ eval "$(conda shell.bash hook)"
 
 conda activate roborobo
 
-cd /scratch/rnxemi001/hons-projectTEMP
+cd /scratch/rnxemi001/hons-projectTEMP 
 
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-easy_maze-difficult.properties ssga-e-d-01
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-easy_maze-difficult.properties ssga-e-d-02
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-easy_maze-difficult.properties ssga-e-d-03
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-easy_maze-difficult.properties ssga-e-d-04

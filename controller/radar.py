@@ -7,6 +7,7 @@ import util.globals as globals
 import util.categorise as categorise
 import numpy as np
 from environment.sinkholeObject import SinkholeObject
+from environment.blockObject import BlockObject
 
 class RadarSensor:
 
@@ -33,10 +34,18 @@ class RadarSensor:
       max_angle = self.fov[1]
       undetected_distance = -1
       closest_distance = 9999999999999
+
+    is_difficult = globals.config.get("pDifficultLevel", "bool")
     # filter distance detections based on object type for radar
     if self.type == "wall":
       is_walls = self.agent.get_all_walls()
-      distances = np.where(is_walls, distances, undetected_distance)
+      if (is_difficult): # Detect dynamic blocks as walls
+        all_instances = self.agent.get_all_object_instances()
+        block_instances = np.array([isinstance(physical_object, BlockObject) for physical_object in all_instances])
+        combined = np.logical_or(is_walls, block_instances)
+        distances = np.where(combined, distances, undetected_distance)
+      else:
+        distances = np.where(is_walls, distances, undetected_distance)
     elif self.type == "sinkhole":
       all_instances = self.agent.get_all_object_instances()
       sinkhole_instances = [isinstance(physical_object, SinkholeObject) for physical_object in all_instances]

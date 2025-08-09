@@ -1,10 +1,10 @@
-import multiprocessing
 from pyroborobo import Pyroborobo, Controller
 import util.globals as globals
 from controller.dog import DogController
 from controller.sheep import SheepController
 import util.categorise as categorise
 import util.calculate as calculate
+from util.sys_helper import get_hpc_cpu_count
 
 class BaseController(Controller):
 
@@ -20,8 +20,8 @@ class BaseController(Controller):
     population_size = globals.config.get("pPopulationSize", "int")
     evaluation_trials = globals.config.get("pEvaluationTrials", "int")
     # Calculate total steps for each simulation window, adjusting for parallelism (CPU count)
-    total_steps_per_sim_square = (population_size/multiprocessing.cpu_count())*simulation_lifetime*evaluation_trials
-    self.half = 0.5 * total_steps_per_sim_square
+    total_steps_per_sim_square = int((population_size/get_hpc_cpu_count())*simulation_lifetime*evaluation_trials)
+    self.half = int(0.5 * total_steps_per_sim_square)
     self.easy_bool = globals.config.get("pEasyLevel", "bool")
 
   def reset(self):
@@ -31,7 +31,7 @@ class BaseController(Controller):
     globals.current_time = Pyroborobo.get().iterations
     if self.get_id() == 1:
       # For Easy Level: Target zone switches corners mid-simulation
-      if (globals.current_time == self.half and self.easy_bool and self.target_switched == False):
+      if (int(globals.current_time) == int(self.half) and self.easy_bool and self.target_switched == False):
         new_x = 491
         new_y = 488
         target_zone_radius = globals.config.get("pTargetZoneRadius", "int") + 2

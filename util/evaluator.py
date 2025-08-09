@@ -7,11 +7,12 @@ from util.config_reader import ConfigReader
 from monitor.progress import ProgressMonitor
 import pickle
 import random
+from util.sys_helper import get_hpc_cpu_count
 
 def execute(population: list, config_filename: str, run_id: int, nb_generations: int, start_generation: int, current_generation: int):
   manager = multiprocessing.Manager()
   config = ConfigReader(config_filename)
-  nb_processes = multiprocessing.cpu_count()
+  nb_processes = get_hpc_cpu_count()
   processes = []
   process_output = manager.dict()
   process_output.clear()

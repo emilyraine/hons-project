@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mem=120gb
+#PBS -P CSCI1142
+#PBS -q smp
+#PBS -l walltime=6:30:00
+#PBS -o /mnt/lustre/users/eraine/jobs/ssga_unfinished_10.out
+#PBS -e /mnt/lustre/users/eraine/jobs/ssga_unfinished_10.err
+#PBS -m abe
+#PBS -M rnxemi001@myuct.ac.za
+
+ulimit -s unlimited
+
+module purge
+module load chpc/BIOMODULES anaconda/3
+module load chpc/BIOMODULES roborobo4
+
+eval "$(conda shell.bash hook)"
+
+conda activate roborobo
+
+cd /mnt/lustre/users/eraine/hons-project3
+nproc=`cat $PBS_NODEFILE | wc -l`
+echo nproc is $nproc
+cat $PBS_NODEFILE
+
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_ssga-d-d-10/checkpoints/gen_47.pkl
+
+conda deactivate

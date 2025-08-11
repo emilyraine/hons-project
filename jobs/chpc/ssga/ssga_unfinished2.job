@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mem=120gb
+#PBS -P CSCI1142
+#PBS -q smp
+#PBS -l walltime=26:00:00
+#PBS -o /mnt/lustre/users/eraine/jobs/ssga_unfinished2.out
+#PBS -e /mnt/lustre/users/eraine/jobs/ssga_unfinished2.err
+#PBS -m abe
+#PBS -M rnxemi001@myuct.ac.za
+
+ulimit -s unlimited
+
+module purge
+module load chpc/BIOMODULES anaconda/3
+module load chpc/BIOMODULES roborobo4
+
+eval "$(conda shell.bash hook)"
+
+conda activate roborobo
+
+cd /mnt/lustre/users/eraine/hons-project5
+nproc=`cat $PBS_NODEFILE | wc -l`
+echo nproc is $nproc
+cat $PBS_NODEFILE
+
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_ssga-d-e-13/checkpoints/gen_42.pkl
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-difficult_maze-easy.properties ssga-d-e-14
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/ssga/ssga-difficult_maze-easy.properties ssga-d-e-15
+
+conda deactivate

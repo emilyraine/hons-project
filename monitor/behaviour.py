@@ -75,7 +75,7 @@ class DogDistanceBehaviourMonitor:
     self.max_distance = calculate.max_distance_between_points(self.arena_width, self.arena_height) / 10 # practical max is 0.06 +/- 0.03 of theoretical max
     self.history = []
 
-  def track(self): #check works with sinkhole level
+  def track(self):
     dogs = categorise.get_dogs()
     total_distance = 0.0
     for dogA in dogs:

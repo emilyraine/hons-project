@@ -1,11 +1,13 @@
 import math
+import heapq
+
 # Dominated Novelty Search
 
 # Compute the dominated novelty score (average distance to the k-nearest-fitter solutions) for each individual 
 # Select and return the top pop_size individuals ranked by highest dominated novelty score
 
 def dns_select(population, pop_size, k):
-    # All fitness values and descriptor lists
+    # Fitness values and descriptor lists
     descriptors = [individual.features for individual in population]
     fitnesses = [individual.fitness.values[0] for individual in population]
 
@@ -15,21 +17,17 @@ def dns_select(population, pop_size, k):
     # Compute DNS scores for every individual
     for ind in range(num_individuals):
         ind_fitness = fitnesses[ind]
-        fitter_individuals = []
-        for x in range(num_individuals):
-            if fitnesses[x] > ind_fitness:
-                fitter_individuals.append(x)
+        fitter_individuals = [x for x in range(num_individuals) if fitnesses[x] > ind_fitness]
         if len(fitter_individuals) == 0:
             dns_scores[ind] = math.inf
         else:
-            distances = []
-            for j in fitter_individuals:
-                dist = math.dist(descriptors[ind], descriptors[j])
-                distances.append(dist)
-
-            distances.sort() 
+            distances = [math.dist(descriptors[ind], descriptors[j]) for j in fitter_individuals]
             m = min(k, len(distances)) 
-            dns_scores[ind] = sum(distances[:m])/float(m)
+            if m == 0:
+                dns_scores[ind] = math.inf
+            else:
+                nearest = heapq.nsmallest(m, distances)
+                dns_scores[ind] = sum(nearest)/len(nearest)
 
     indexed_scores = []
     for i in range(num_individuals):

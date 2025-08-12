@@ -1,8 +1,8 @@
 #!/bin/bash
-#PBS -l select=1:ncpus=24
+#PBS -l select=1:ncpus=24:mem=120gb
 #PBS -P CSCI1142
 #PBS -q smp
-#PBS -l walltime=96:00:00
+#PBS -l walltime=55:00:00
 #PBS -o /mnt/lustre/users/eraine/jobs/dns-d-m-05.out
 #PBS -e /mnt/lustre/users/eraine/jobs/dns-d-m-05.err
 #PBS -m abe

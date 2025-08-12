@@ -92,10 +92,12 @@ class IndividualEvaluator(multiprocessing.Process):
     trial_pen_behaviours = []
     trial_dog_behaviours = []
     trial_sheep_behaviours = []
+    trial_morphological_complexities = []
     for _ in range(globals.config.get("pEvaluationTrials", "int")):
       self.__reset()
       globals.simulator.update(globals.config.get("pSimulationLifetime", "int"))
       trial_scores.append(globals.fitness_monitor.score())
+      trial_morphological_complexities.append(globals.morph_monitor.get_morphological_complexity())
       if "PEN" in behaviour_features:
         trial_pen_behaviours.append(globals.pen_behaviour_monitor.get_average())
       if "DOG" in behaviour_features:
@@ -111,6 +113,7 @@ class IndividualEvaluator(multiprocessing.Process):
         features.append(sum(trial_dog_behaviours) / len(trial_dog_behaviours))
       if "SHEEP" in behaviour_features:
         features.append(sum(trial_sheep_behaviours) / len(trial_sheep_behaviours))
+      features.append(sum(trial_morphological_complexities) / len(trial_morphological_complexities))
       return (fitness, features)
     else:
       return fitness

@@ -137,7 +137,8 @@ if __name__ == "__main__":
       stats_pen = tools.Statistics(lambda ind: ind.features[0])
       stats_dog = tools.Statistics(lambda ind: ind.features[1])
       stats_shp = tools.Statistics(lambda ind: ind.features[2])
-      mstats = tools.MultiStatistics(fitness=stats_fit, pen=stats_pen, dog=stats_dog, sheep=stats_shp)
+      stats_mrph = tools.Statistics(lambda ind: ind.features[3])
+      mstats = tools.MultiStatistics(fitness=stats_fit, pen=stats_pen, dog=stats_dog, sheep=stats_shp, morph = stats_mrph)
       mstats.register("avg", np.mean)
       mstats.register("std", np.std)
       mstats.register("min", np.min)
@@ -168,12 +169,14 @@ if __name__ == "__main__":
       results_pen = logbook.chapters["pen"].select("avg", "std", "min", "max")
       results_dog = logbook.chapters["dog"].select("avg", "std", "min", "max")
       results_shp = logbook.chapters["sheep"].select("avg", "std", "min", "max")
+      results_mrph = logbook.chapters["morph"].select("avg", "std", "min", "max")
       logger = ResultLogger(RUN_ID, "results", [
         "gen", 
         "fit-avg", "fit-std", "fit-min", "fit-max", 
         "pen-avg", "pen-std", "pen-min", "pen-max", 
         "dog-avg", "dog-std", "dog-min", "dog-max", 
-        "shp-avg", "shp-std", "shp-min", "shp-max"
+        "shp-avg", "shp-std", "shp-min", "shp-max",
+        "mrph-avg", "mrph-std", "mrph-min", "mrph-max"
       ])
       for i in range(len(results_gen)):
         logger.append([
@@ -182,6 +185,7 @@ if __name__ == "__main__":
           results_pen[0][i], results_pen[1][i], results_pen[2][i], results_pen[3][i],
           results_dog[0][i], results_dog[1][i], results_dog[2][i], results_dog[3][i],
           results_shp[0][i], results_shp[1][i], results_shp[2][i], results_shp[3][i],
+          results_mrph[0][i], results_mrph[1][i], results_mrph[2][i], results_mrph[3][i]
         ])
       print("Results exported.")
       exit(0)
@@ -321,6 +325,8 @@ if __name__ == "__main__":
     print("Maximum Dog Distance: " + str(record["dog"]["max"]))
     print("Average Sheep Distance: " + str(record["sheep"]["avg"]))
     print("Maximum Sheep Distance: " + str(record["sheep"]["max"]))
+    print("Average Morphological Complexity: " + str(record["morph"]["avg"]))
+    print("Maximum Morphological Complexity: " + str(record["morph"]["max"]))
 
     # save checkpoint
     if generation % CONFIG.get("pCheckpointInterval", "int") == 0:

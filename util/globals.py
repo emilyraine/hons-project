@@ -3,7 +3,7 @@ from util.config_reader import ConfigReader
 from controller.base import BaseController
 from monitor.swarm import SwarmFitnessMonitor
 from monitor.behaviour import BehaviourMonitor
-
+from monitor.morphology import MorphologyMonitor
 def init(_config_filename: str, _run_id: str, _start_generation: int):
   global config_filename
   global config
@@ -15,6 +15,7 @@ def init(_config_filename: str, _run_id: str, _start_generation: int):
   global pen_behaviour_monitor
   global dog_behaviour_monitor
   global sheep_behaviour_monitor
+  global morph_monitor
   config_filename = _config_filename
   config = ConfigReader(_config_filename)
   run_id = _run_id
@@ -29,3 +30,4 @@ def init(_config_filename: str, _run_id: str, _start_generation: int):
   pen_behaviour_monitor = BehaviourMonitor("PEN_DISTANCE")
   dog_behaviour_monitor = BehaviourMonitor("DOG_DISTANCE")
   sheep_behaviour_monitor = BehaviourMonitor("SHEEP_DISTANCE")
+  morph_monitor = MorphologyMonitor()

@@ -37,7 +37,7 @@ class DogController:
     DogController.ICE_RGB = (50, 130, 246)
     DogController.MUD_RGB = (120, 67, 21)
 
-  def reset(self):
+  def reset(self): 
     self.morphology.energy = globals.config.get("dMaxEnergy", "float")
     pass
 

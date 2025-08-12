@@ -14,6 +14,8 @@ class SwarmFitnessMonitor:
       self.monitor = MingleFitnessMonitor()
     elif method == "COUNT":
       self.monitor = CountFitnessMonitor()
+    elif method == "COUNTMORPH":
+      self.monitor = CountMorphFitnessMonitor()
     else:
       raise Exception("Unsupported method code for measuring swarm fitness")
 
@@ -53,6 +55,43 @@ class CountFitnessMonitor:
   def reset(self):
     for sheep in self.sheep:
       sheep.status = 1
+
+class CountMorphFitnessMonitor:
+
+  def __init__(self):
+    self.sheep = categorise.get_sheep()
+    self.dogs = categorise.get_dogs()
+
+  def report(self):
+    print("Not implemented")
+  
+  def score(self):
+    captured = 0
+    for sheep in self.sheep:
+      if sheep.status == 0:
+        captured += 1
+    count_fitness = captured / len(self.sheep)
+
+    morph_fitnesses = 0
+    for dog in self.dogs:
+      if hasattr(dog, "morphology"):
+        morphology_params = dog.morphology.normalise()
+        speed = morphology_params['max_translation_speed']
+        sensor_range = morphology_params['sensor_range']
+        fov = morphology_params['sensor_fov']
+        #energy usage implemented in dog controller, penalty: dogs stop moving
+        morph_fitness = ( (speed/self.speed_max) + (sensor_range/self.sensorRange_max) + (fov[0]/self.sensorFOV_max) + (fov[1]/self.sensorFOV_max) ) / 4
+    morphological_fitness = morph_fitnesses / len(self.dogs)
+    
+    return ((0.7 * count_fitness) + (0.3 * morphological_fitness))
+
+  def track(self):
+    pass
+
+  def reset(self):
+    for sheep in self.sheep:
+      sheep.status = 1
+
 
 class MingleFitnessMonitor:
 

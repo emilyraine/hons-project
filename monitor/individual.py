@@ -40,11 +40,9 @@ class RegularCountFitnessMonitor:
     self.avoidance_radius = globals.config.get("sDogAvoidanceRadius", "float")
     self.tracking = {}
     self.history = {}
+    self.morph_complexity_history = {}
     self.p_max = 1
     self.n_max = 1
-    self.speed_max = 1.0
-    self.sensorRange_max = 1
-    self.sensorFOV_max = 1
 
   def report(self):
     for dog in self.dogs:
@@ -52,7 +50,14 @@ class RegularCountFitnessMonitor:
         history = self.history[dog.id]
       else:
         history = {'p': 0, 'n': 0}
-      print("Dog #" + str(dog.id) + ": History = " + str(history) + ", Fitness = " + str(self.score(dog)))
+      #calculate and record morphological complexity
+      morph_complexity = self.get_morphological_complexity(dog)
+      if dog.id not in self.morph_complexity_history:
+        self.morph_complexity_history[dog.id] = []
+      self.morph_complexity_history[dog.id].append(morph_complexity)
+      print("Dog #" + str(dog.id) + ": History = " + str(history) + ", Fitness = " + str(self.score(dog)) + ", Morphological Complexity = " + str(morph_complexity))
+    for dog_id, values in self.morph_complexity_history.items():
+      print(f"Dog #{dog_id}: {values}")
 
 #p: number of positive movements(towards target zone)
 #n: number of negative movements(away from target zone)
@@ -68,11 +73,17 @@ class RegularCountFitnessMonitor:
     speed = morphology_params['max_translation_speed']
     sensor_range = morphology_params['sensor_range']
     fov = morphology_params['sensor_fov']
-    #need to implement energy usage
-    #storing morph params in history necessary ?
-    morphological_fitness = ( (speed/self.speed_max) + (sensor_range/self.sensorRange_max) + (fov[0]/self.sensorFOV_max) + (fov[1]/self.sensorFOV_max) ) / 4
+    #energy usage implemented in dog controller, penalty: dogs stop moving
+    morphological_fitness = ( speed + sensor_range + abs(fov[0]) + fov[1] )/ 4
 
     return (behaviour_fitness + morphological_fitness) / 2
+
+  def get_morphological_complexity(self, dog, w_speed=1.0, w_range=1.0, w_fov=1.0):
+    morphology_params = dog.morphology.normalise()
+    speed = morphology_params['max_translation_speed']
+    sensor_range = morphology_params['sensor_range']
+    fov = morphology_params['sensor_fov']
+    return w_speed * speed + w_range * sensor_range + w_fov * ((fov[0] + fov[1]) / 2)
     
   def avg_score(self):
     total_fitness = 0

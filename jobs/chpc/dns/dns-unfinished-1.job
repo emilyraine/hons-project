@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mem=120gb
+#PBS -P CSCI1142
+#PBS -q smp
+#PBS -l walltime=5:00:00
+#PBS -o /mnt/lustre/users/eraine/jobs/dns-unfinished-1.out
+#PBS -e /mnt/lustre/users/eraine/jobs/dns-unfinished-1.err
+#PBS -m abe
+#PBS -M rnxemi001@myuct.ac.za
+
+ulimit -s unlimited
+
+module purge
+module load chpc/BIOMODULES anaconda/3
+module load chpc/BIOMODULES roborobo4
+
+eval "$(conda shell.bash hook)"
+
+conda activate roborobo
+
+cd /mnt/lustre/users/eraine/hons-projectd7
+nproc=`cat $PBS_NODEFILE | wc -l`
+echo nproc is $nproc
+cat $PBS_NODEFILE
+
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_dns-e-d-05/checkpoints/gen_65.pkl
+
+conda deactivate

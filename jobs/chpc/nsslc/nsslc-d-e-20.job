@@ -1,0 +1,32 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=24:mem=120gb
+#PBS -P CSCI1142
+#PBS -q smp
+#PBS -l walltime=55:00:00
+#PBS -o /mnt/lustre/users/eraine/jobs/nsslc-d-e-20.out
+#PBS -e /mnt/lustre/users/eraine/jobs/nsslc-d-e-20.err
+#PBS -m abe
+#PBS -M rnxemi001@myuct.ac.za
+
+ulimit -s unlimited
+
+module purge
+module load chpc/BIOMODULES anaconda/3
+module load chpc/BIOMODULES roborobo4
+
+eval "$(conda shell.bash hook)"
+
+conda activate roborobo
+
+cd /mnt/lustre/users/eraine/hons-project
+nproc=`cat $PBS_NODEFILE | wc -l`
+echo nproc is $nproc
+cat $PBS_NODEFILE
+
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/nsslc/nsslc-difficult_maze-easy.properties nsslc-d-e-16
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/nsslc/nsslc-difficult_maze-easy.properties nsslc-d-e-17
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/nsslc/nsslc-difficult_maze-easy.properties nsslc-d-e-18
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/nsslc/nsslc-difficult_maze-easy.properties nsslc-d-e-19
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/nsslc/nsslc-difficult_maze-easy.properties nsslc-d-e-20
+
+conda deactivate

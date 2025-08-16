@@ -2,8 +2,7 @@ import math
 from sklearn.cluster import KMeans
 from scipy.spatial.distance import cdist 
 import numpy as np
-from deap import tools
-import types
+from deap import creator, tools
 
 
 archive = [] 
@@ -74,8 +73,7 @@ def nsslc_select(population, pop_size, generation, kSS, lmbda, nLC, nNS, nSS, h,
 def select_nsga2(ns_scores, lc_scores, pop_size, population):
     clones = []
     for index, (ns, lc) in enumerate(zip(ns_scores, lc_scores)):
-        clone = types.SimpleNamespace()
-        clone.fitness = types.SimpleNamespace()
+        clone = creator.Individual([])
         clone.fitness.weights = (1.0, 1.0)
         clone.fitness.values = (ns, lc)        
         clone.pop_index = index

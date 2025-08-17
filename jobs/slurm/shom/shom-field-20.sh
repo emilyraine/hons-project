@@ -9,7 +9,7 @@
 #SBATCH --job-name="shom-field-20_fixed"
 #SBATCH --output=/scratch/khnnah001/jobs/shom-field-20_fixed.out 
 #SBATCH --error=/scratch/rnxemi001/jobs/shom-field-20_fixed.err 
-#SBATCH --mail-user=n.khanpe@icloud.com
+#SBATCH --mail-user=khnnah001@myuct.ac.za
 #SBATCH --mail-type=ALL
 
 ulimit -s unlimited

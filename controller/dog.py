@@ -26,6 +26,15 @@ class DogController:
     self.genome = None
     self.max_target_distance = calculate.max_distance_from_target_zone(self.target_coords, self.target_radius, self.arena_width, self.arena_height)
 
+    #Load environment image once for all dogs
+    if not hasattr(DogController, "env_img"):
+        env_img_path = globals.config.get("gForegroundImageFilename", "str")
+        DogController.env_img = Image.open(env_img_path).convert("RGB")
+        DogController.env_img_width, DogController.env_img_height = DogController.env_img.size
+    #Ice and mud RGB values (used to detect if dog is on ice/mud pixel)
+    DogController.ICE_RGB = (50, 130, 246)
+    DogController.MUD_RGB = (120, 67, 21)
+
   def reset(self):
     pass
 
@@ -34,8 +43,34 @@ class DogController:
       globals.ds_interaction_monitor.track(self.agent)
     input = torch.FloatTensor(self.get_inputs().reshape((1, globals.config.get("dInputNodes", "int"))))
     output = self.network(input)
-    self.agent.set_translation(output[0,0] * globals.config.get("dMaxTranslationSpeed", "float"))
-    self.agent.set_rotation(output[0,1])
+    max_translation_speed = globals.config.get("dMaxTranslationSpeed", "float")
+
+    #check if ice or mud pixel
+    x, y = int(self.agent.absolute_position[0]), int(self.agent.absolute_position[1])
+    x = max(0, min(x, DogController.env_img_width - 1))
+    y = max(0, min(y, DogController.env_img_height - 1))
+    pixel = DogController.env_img.getpixel((x, y))
+    on_ice = pixel == DogController.ICE_RGB
+    on_mud = pixel == DogController.MUD_RGB
+
+    translation = output[0,0] * max_translation_speed
+    rotation = output[0,1]
+
+    if on_ice:
+        #add slip(rotation) and reduce speed
+        ice_factor = 0.75
+        translation *= ice_factor
+        if random.random() < globals.config.get("pIceSlipProbability", "float"):
+          slip_angle = globals.config.get("pIceSlipAngle", "float")
+          rotation += slip_angle
+    elif on_mud:
+        #reduce speed only
+        mud_factor = 0.60
+        translation *= mud_factor
+
+    rotation = max(-1.0, min(1.0, rotation))
+    self.agent.set_translation(translation)
+    self.agent.set_rotation(rotation)
 
   def get_inputs(self):
     # distance inputs are normalised between 0 and 1 (where 0 is undetected and 1 is as close as possible)

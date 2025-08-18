@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --account=compsci
+#SBATCH --account=maths
 #SBATCH --partition=ada
 #SBATCH --time=46:00:00
 #SBATCH --nodes=1
@@ -8,7 +8,7 @@
 #SBATCH --constraint=small
 #SBATCH --job-name="shom-field-20_fixed"
 #SBATCH --output=/scratch/khnnah001/jobs/shom-field-20_fixed.out 
-#SBATCH --error=/scratch/rnxemi001/jobs/shom-field-20_fixed.err 
+#SBATCH --error=/scratch/khnnah001001/jobs/shom-field-20_fixed.err 
 #SBATCH --mail-user=khnnah001@myuct.ac.za
 #SBATCH --mail-type=ALL
 
@@ -21,7 +21,7 @@ eval "$(conda shell.bash hook)"
 
 conda activate roborobo
 
-cd /scratch/khnnah001/hons-project-1
+cd /scratch/khnnah001/hons-project
 
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20-fixed_1
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20-fixed_2

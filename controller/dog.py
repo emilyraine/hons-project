@@ -4,6 +4,8 @@ import numpy as np
 import util.globals as globals
 from controller.radar import RadarSensor
 from torch import nn
+from PIL import Image
+import random
 
 torch.manual_seed(0) # ensure bias is consistent
 

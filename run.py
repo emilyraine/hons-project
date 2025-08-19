@@ -1,3 +1,4 @@
+import sys
 from deap import base, creator, tools
 from util.config_reader import ConfigReader
 from util.result_logger import ResultLogger
@@ -8,7 +9,6 @@ import time
 import multiprocessing
 import pickle
 import random
-import sys
 import os
 import util.mapelites as mapelites
 import util.dns as dns
@@ -93,7 +93,8 @@ if __name__ == "__main__":
         nSS = CONFIG.get("pnSS", "int")
         h = CONFIG.get("pH", "int")
         timeout_limit = max(1, round(10 * (CONFIG.get("pSimulationGenerations", "int") / 600)))
-        toolbox.register("nsslc_select", nsslc.nsslc_select, lmbda = lmbda, nLC = nLC, nNS = nNS, nSS = nSS, h = h, timeout_limit = timeout_limit)
+        kSS = int(0.8 * (2* CONFIG.get("pPopulationSize", "int"))) # number of behavioural clusters
+        toolbox.register("nsslc_select", nsslc.nsslc_select, lmbda = lmbda, nLC = nLC, nNS = nNS, nSS = nSS, h = h, timeout_limit = timeout_limit, kSS=kSS)
 
 
       # define statistics to track
@@ -275,8 +276,7 @@ if __name__ == "__main__":
       population[:] = selected
     elif chosen_algorithm.startswith("NS"):
       combined = population + offspring
-      kSS = 0.8 * len(combined) # number of behavioural clusters
-      selected = toolbox.nsslc_select(combined, population_size, generation, kSS)
+      selected = toolbox.nsslc_select(combined, population_size)
       population[:] = selected
     else:
       population[:] = offspring

@@ -3,17 +3,19 @@ from sklearn.cluster import KMeans
 from scipy.spatial.distance import cdist 
 import numpy as np
 from deap import creator, tools
-
+import heapq
+import sys
 
 archive = [] 
 history = []
-novelty_threshold = 0.1 # try with 6.0
-novelty_floor = 0.07 # try with 0.25
+novelty_initialised = False
+novelty_threshold = None
+novelty_floor = None
 time_out = 0
 add_queue = []
 prev_centroids = None
 
-def nsslc_select(population, pop_size, generation, kSS, lmbda, nLC, nNS, nSS, h, timeout_limit): 
+def nsslc_select(population, pop_size, lmbda, nLC, nNS, nSS, h, timeout_limit, kSS): 
 
     # evaluate offspring
     search_pool = population + archive
@@ -29,28 +31,31 @@ def nsslc_select(population, pop_size, generation, kSS, lmbda, nLC, nNS, nSS, h,
         current_descriptor = ind.features
         true_index = indiv_to_index[id(ind)]
         indexed_distances = [(j, math.dist(current_descriptor, desc_j)) for j, desc_j in enumerate(search_descriptors) if j != true_index]
-        distances_sorted = sorted(dist for j, dist in indexed_distances)
 
         # Calculate Novelty Score (eq 1) - compute novelty for each descriptor in current population
-        k_ns = min(nNS, len(distances_sorted))
-        novelty = sum(distances_sorted[:k_ns])/float(k_ns)
+        k_ns = min(nNS, len(indexed_distances))
+        distances_sorted = heapq.nsmallest(k_ns, (dist for j, dist in indexed_distances))
+        novelty = np.mean(distances_sorted)
         novelty_scores.append(novelty)
 
         # Add members to Novelty Archive A
         # if individual has a novelty score above a fluctuating threshold then is added to novelty archive
-        if novelty > novelty_threshold:
-            archive.append(ind)
-            add_queue.append(ind)
+        if novelty_initialised:
+            if novelty > novelty_threshold:
+                archive.append(ind)
+                add_queue.append(ind)
 
         # Calculate Local Competition 
-        indexed = sorted(indexed_distances, key = lambda pair: pair[1]) 
         lc_score = 0
-        k_lc = min(nLC, len(indexed))
-        for b in range(k_lc):
-            if(ind.fitness.values[0] > search_fitnesses[indexed[b][0]]):
-                lc_score += 1
+        k_lc = min(nLC, len(indexed_distances))
+        indexed = heapq.nsmallest(k_lc, indexed_distances, key = lambda pair: pair[1] )
+        lc_score = sum(1 for j,dist in indexed if ind.fitness.values[0] > search_fitnesses[j])/float(k_lc)
 
         local_competition_scores.append(lc_score)
+    
+    # Generation 1: initialise Novelty Threshold and Novelty Floor
+    if not novelty_initialised:
+        initialise_novelty(novelty_scores, population)
 
     # Calculate Surprise Score (eq 3)
     # Update surprise model
@@ -63,11 +68,26 @@ def nsslc_select(population, pop_size, generation, kSS, lmbda, nLC, nNS, nSS, h,
     selected = select_nsga2(novelty_surprise_scores, local_competition_scores, pop_size, population)
     
     # archive threshold is fluctuating
-    adjust_novelty_threshold(generation, timeout_limit)
+    adjust_novelty_threshold(timeout_limit)
 
     return selected
 
 
+def initialise_novelty(novelty_scores, population):
+    global novelty_threshold, novelty_floor, novelty_initialised, archive, add_queue
+    sorted_indices = np.argsort(novelty_scores)[::-1]
+    sorted_novelty = [novelty_scores[i] for i in sorted_indices]
+    top_ten = sorted_novelty[9]
+    top_ten_indices = sorted_indices[:10]
+    for i in top_ten_indices:
+        archive.append(population[i])
+        add_queue.append(population[i])
+        print(f"Top 10 novelty scores in archive: {novelty_scores[i]}", file=sys.stderr)
+    novelty_threshold = math.nextafter(top_ten, float("-inf")) 
+    top_20 = sorted_novelty[19]
+    novelty_floor = math.nextafter(top_20, float("-inf"))
+    print(f"Novelty floor: {novelty_floor:}", file=sys.stderr) 
+    novelty_initialised = True
 
 
 def select_nsga2(ns_scores, lc_scores, pop_size, population):
@@ -92,7 +112,6 @@ def update_surprise_model(population, h, kSS, nSS):
         history.pop(0) # remove the descriptors of the oldest generation
 
     history_combined = np.vstack(history)
-    n_samples = history_combined.shape[0]
 
     # seed from last generation if available, else random
     if prev_centroids is None:
@@ -111,18 +130,18 @@ def update_surprise_model(population, h, kSS, nSS):
     # store for next generation
     prev_centroids = centroids
   
-    distances = cdist(descriptors, predictions )
+    distances = cdist(descriptors, predictions)
     surprise_scores = []
     for i in range(len(population)):
-        distances_to_predictions = np.sort(distances[i])
-        m = min(nSS, len(distances_to_predictions))
-        score = sum(distances_to_predictions[:m])/float(m)
+        m = min(nSS, len(distances[i]))
+        distances_to_predictions = np.partition(distances[i], m-1)[:m]
+        score = distances_to_predictions.mean()
         surprise_scores.append(score)
     
     return surprise_scores
 
 
-def adjust_novelty_threshold(gen, timeout_limit):
+def adjust_novelty_threshold(timeout_limit):
     global novelty_threshold, novelty_floor, time_out, add_queue
     added = len(add_queue)
     if added == 0:
@@ -130,13 +149,17 @@ def adjust_novelty_threshold(gen, timeout_limit):
     else:
         time_out = 0
 
+    print(f"incoming novelty threshold: {novelty_threshold}, individuals added this generation: {added}", file=sys.stderr)  
+
     # Lower threshold if archive stagnant
     if time_out >= timeout_limit:
         novelty_threshold = max(novelty_threshold * 0.95, novelty_floor)
         time_out = 0
 
     # Raise threshold if too many additions
-    if added > 4: #make this in proportion to the size of pop
+    if added > 4:
         novelty_threshold *= 1.2
+    
+    print(f"Current novelty threshold: {novelty_threshold}", file=sys.stderr)
 
     add_queue.clear()

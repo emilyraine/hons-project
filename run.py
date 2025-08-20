@@ -138,7 +138,8 @@ if __name__ == "__main__":
       stats_dog = tools.Statistics(lambda ind: ind.features[1])
       stats_shp = tools.Statistics(lambda ind: ind.features[2])
       stats_mrph = tools.Statistics(lambda ind: ind.features[3])
-      mstats = tools.MultiStatistics(fitness=stats_fit, pen=stats_pen, dog=stats_dog, sheep=stats_shp, morph = stats_mrph)
+      stats_cap = tools.Statistics(lambda ind: ind.features[4] if len(ind.features) > 4 else None)
+      mstats = tools.MultiStatistics(fitness=stats_fit, pen=stats_pen, dog=stats_dog, sheep=stats_shp, morph=stats_mrph, capture=stats_cap)
       mstats.register("avg", np.mean)
       mstats.register("std", np.std)
       mstats.register("min", np.min)
@@ -170,13 +171,15 @@ if __name__ == "__main__":
       results_dog = logbook.chapters["dog"].select("avg", "std", "min", "max")
       results_shp = logbook.chapters["sheep"].select("avg", "std", "min", "max")
       results_mrph = logbook.chapters["morph"].select("avg", "std", "min", "max")
+      results_cap = logbook.chapters["capture"].select("avg", "std", "min", "max")
       logger = ResultLogger(RUN_ID, "results", [
         "gen", 
         "fit-avg", "fit-std", "fit-min", "fit-max", 
         "pen-avg", "pen-std", "pen-min", "pen-max", 
         "dog-avg", "dog-std", "dog-min", "dog-max", 
         "shp-avg", "shp-std", "shp-min", "shp-max",
-        "mrph-avg", "mrph-std", "mrph-min", "mrph-max"
+        "mrph-avg", "mrph-std", "mrph-min", "mrph-max",
+        "cap-avg", "cap-std", "cap-min", "cap-max"
       ])
       for i in range(len(results_gen)):
         logger.append([
@@ -185,7 +188,11 @@ if __name__ == "__main__":
           results_pen[0][i], results_pen[1][i], results_pen[2][i], results_pen[3][i],
           results_dog[0][i], results_dog[1][i], results_dog[2][i], results_dog[3][i],
           results_shp[0][i], results_shp[1][i], results_shp[2][i], results_shp[3][i],
-          results_mrph[0][i], results_mrph[1][i], results_mrph[2][i], results_mrph[3][i]
+          results_mrph[0][i], results_mrph[1][i], results_mrph[2][i], results_mrph[3][i],
+          results_cap[0][i] if results_cap[0][i] is not None else 0, 
+          results_cap[1][i] if results_cap[1][i] is not None else 0, 
+          results_cap[2][i] if results_cap[2][i] is not None else 0, 
+          results_cap[3][i] if results_cap[3][i] is not None else 0
         ])
       print("Results exported.")
       exit(0)
@@ -327,6 +334,10 @@ if __name__ == "__main__":
     print("Maximum Sheep Distance: " + str(record["sheep"]["max"]))
     print("Average Morphological Complexity: " + str(record["morph"]["avg"]))
     print("Maximum Morphological Complexity: " + str(record["morph"]["max"]))
+    # Add capture ratio output if available
+    if "capture" in record and record["capture"]["avg"] is not None:
+      print("Average Sheep Capture Ratio: " + str(record["capture"]["avg"]))
+      print("Maximum Sheep Capture Ratio: " + str(record["capture"]["max"]))
 
     # save checkpoint
     if generation % CONFIG.get("pCheckpointInterval", "int") == 0:

@@ -2,11 +2,11 @@
 #PBS -l select=1:ncpus=24
 #PBS -P CSCI1142
 #PBS -q smp
-#PBS -l walltime=96:00:00
-#PBS -o /mnt/lustre/users/shallauer/jobs/shom-e-10.out
-#PBS -e /mnt/lustre/users/shallauer/jobs/shom-e-10.err
+#PBS -l walltime=56:00:00
+#PBS -o /mnt/lustre/users/nkhan/jobs/morph-ice-15.out
+#PBS -e /mnt/lustre/users/nkhan/jobs/morph-ice-15.err
 #PBS -m abe
-#PBS -M scott.hallauer@gmail.com
+#PBS -M n.khanpe@icloud.com
 
 ulimit -s unlimited
 
@@ -23,15 +23,10 @@ nproc=`cat $PBS_NODEFILE | wc -l`
 echo nproc is $nproc
 cat $PBS_NODEFILE
 
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-01/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-02/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-03/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-04/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-05/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-06/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-07/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-08/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-09/checkpoints/gen_100.pkl
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_shom-e-10/checkpoints/gen_100.pkl
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-15 ice-15-1
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-15 ice-15-2
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-15 ice-15-3
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-15 ice-15-4
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-15 ice-15-5
 
 conda deactivate

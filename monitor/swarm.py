@@ -61,9 +61,20 @@ class CountMorphFitnessMonitor:
   def __init__(self):
     self.sheep = categorise.get_sheep()
     self.dogs = categorise.get_dogs()
+    # Initialize max values for morphological parameters
+    self.speed_max = 1.0
+    self.sensorRange_max = 1.0
+    self.sensorFOV_max = 1.0
 
   def report(self):
     print("Not implemented")
+  
+  def get_capture_ratio(self):
+    captured = 0
+    for sheep in self.sheep:
+      if sheep.status == 0:
+        captured += 1
+    return captured / len(self.sheep)
   
   def score(self):
     captured = 0
@@ -81,7 +92,8 @@ class CountMorphFitnessMonitor:
         fov = morphology_params['sensor_fov']
         #energy usage implemented in dog controller, penalty: dogs stop moving
         morph_fitness = ( (speed/self.speed_max) + (sensor_range/self.sensorRange_max) + (fov[0]/self.sensorFOV_max) + (fov[1]/self.sensorFOV_max) ) / 4
-    morphological_fitness = morph_fitnesses / len(self.dogs)
+        morph_fitnesses += morph_fitness
+    morphological_fitness = morph_fitnesses / len(self.dogs) if len(self.dogs) > 0 else 0
     
     return ((0.7 * count_fitness) + (0.3 * morphological_fitness))
 

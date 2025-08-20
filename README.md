@@ -227,3 +227,70 @@ Make sure you are SSH'ed into the cluster enviroment and located at the root dir
 ```
 qsub jobs/default.job
 ```
+
+## UCT HPC Cluster Instructions
+### Step 1: Log into cluster
+Start by logging into the relevant cluster account being used to run simulations. If you are logging in from off-campus you must connect to the UCT vpn using Cisco secure client. 
+UCT vpn: vpn.uct.ac.za
+Here is an example of how to SSH onto the UCT HPC cluster:
+```
+ssh username@hex.uct.ac.za
+```
+
+### Step 2: Start an interactive job
+```
+sintx
+```
+
+### Step 3: Load modules
+```
+module load compilers/gcc/12.3.0
+module load tools/boost-1.86.0
+module load python/miniconda3-py3.9
+```
+
+### Step 4: Create conda environment and install dependencies
+```
+conda create -y -n roborobo python=3.9.7
+conda activate roborobo
+conda config --add channels defaults
+conda install -c conda-forge cmake sdl2 sdl2_image eigen
+conda install numpy pybind11
+conda install sphinx recommonmark sphinx_rtd_theme numpydoc
+```
+
+### Step 5: Clone and build Roborobo4
+```
+git clone https://github.com/nekonaute/roborobo4.git
+cd roborobo4
+python -m pip install . --user -v
+```
+TROUBLESHOOTING SPHINX ISSUES:
+Sphinx is used for documentation purposes it is not necessary, we can remove it from setup if it presents issues.
+```
+vi setup.py
+```
+Remove line 7 and remove the build sphinx command from line 64.
+
+Test roborobo installation with:
+```
+python -c "import pyroborobo; print(pyroborobo.__file__)"
+```
+Example of successful output:
+```
+/home/khnnah001/.local/lib/python3.12/site-packages/pyroborobo.cpython-312-x86_64-linux-gnu.so
+```
+
+### Step6: Install dependencies
+```
+pip install --user numpy==1.21.5
+pip install --user scipy==1.7.3
+pip install --user deap==1.3.3
+export SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
+pip install --user qdpy==0.1.2.1
+pip install --user torch==1.12.1
+pip install --user scikit-learn==1.1.3
+pip install --user seaborn==0.12.2
+pip install --user matplotlib==3.6.2
+pip install --user pandas==1.5.2
+pip install --user pillow

@@ -93,11 +93,15 @@ class IndividualEvaluator(multiprocessing.Process):
     trial_dog_behaviours = []
     trial_sheep_behaviours = []
     trial_morphological_complexities = []
+    trial_capture_ratios = []
     for _ in range(globals.config.get("pEvaluationTrials", "int")):
       self.__reset()
       globals.simulator.update(globals.config.get("pSimulationLifetime", "int"))
       trial_scores.append(globals.fitness_monitor.score())
       trial_morphological_complexities.append(globals.morph_monitor.get_morphological_complexity())
+      # Capture the pure capture ratio if using CountMorphFitnessMonitor
+      if hasattr(globals.fitness_monitor.monitor, 'get_capture_ratio'):
+        trial_capture_ratios.append(globals.fitness_monitor.monitor.get_capture_ratio())
       if "PEN" in behaviour_features:
         trial_pen_behaviours.append(globals.pen_behaviour_monitor.get_average())
       if "DOG" in behaviour_features:
@@ -114,6 +118,9 @@ class IndividualEvaluator(multiprocessing.Process):
       if "SHEEP" in behaviour_features:
         features.append(sum(trial_sheep_behaviours) / len(trial_sheep_behaviours))
       features.append(sum(trial_morphological_complexities) / len(trial_morphological_complexities))
+      # Add capture ratio to features if available
+      if trial_capture_ratios:
+        features.append(sum(trial_capture_ratios) / len(trial_capture_ratios))
       return (fitness, features)
     else:
       return fitness

@@ -15,5 +15,5 @@ class MorphologyMonitor:
                 speed = morphology_params['max_translation_speed']
                 sensor_range = morphology_params['sensor_range']
                 fov = morphology_params['sensor_fov']
-                return speed + sensor_range + ((fov[0] + fov[1]) / 2)
+                return (speed + sensor_range + ((fov[0] + fov[1]) / 2))/3
         return 0

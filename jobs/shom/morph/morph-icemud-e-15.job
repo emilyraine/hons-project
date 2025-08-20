@@ -3,8 +3,8 @@
 #PBS -P CSCI1142
 #PBS -q smp
 #PBS -l walltime=56:00:00
-#PBS -o /mnt/lustre/users/nkhan/jobs/morph-icemud-e-15.out
-#PBS -e /mnt/lustre/users/nkhan/jobs/morph-icemud-e-15.err
+#PBS -o /mnt/lustre/users/nkhan/hons-project/jobs/morph-icemud-e-15.out
+#PBS -e /mnt/lustre/users/nkhan/hons-project/jobs/morph-icemud-e-15.err
 #PBS -m abe
 #PBS -M n.khanpe@icloud.com
 
@@ -23,25 +23,25 @@ nproc=`cat $PBS_NODEFILE | wc -l`
 echo nproc is $nproc
 cat $PBS_NODEFILE
 
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-1
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-2
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-3
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-4
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-5
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-6
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-7
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-8
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-9
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-10
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-11
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-12
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-13
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-14
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-15
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-16
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-17
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-18
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-19
-SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-icemud-e-15-20
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_1
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_2
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_3
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_4
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_5
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_6
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_7
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_8
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_9
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_10
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_11
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_12
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_13
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_14
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_15
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_16
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_17
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_18
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_19
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-ice-mud-easy-15.properties icemud-e-15_20
 
 conda deactivate

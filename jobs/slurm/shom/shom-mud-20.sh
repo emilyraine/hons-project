@@ -1,7 +1,7 @@
 #!/bin/sh
 #SBATCH --account=maths
 #SBATCH --partition=ada
-#SBATCH --time=46:00:00
+#SBATCH --time=50:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=40

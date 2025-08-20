@@ -8,7 +8,7 @@
 #SBATCH --constraint=small
 #SBATCH --job-name="shom-field-20_fixed"
 #SBATCH --output=/scratch/khnnah001/jobs/shom-field-20_fixed.out 
-#SBATCH --error=/scratch/khnnah001001/jobs/shom-field-20_fixed.err 
+#SBATCH --error=/scratch/khnnah001/jobs/shom-field-20_fixed.err
 #SBATCH --mail-user=khnnah001@myuct.ac.za
 #SBATCH --mail-type=ALL
 

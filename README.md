@@ -200,9 +200,9 @@ python -c 'import pyroborobo'
 
 ### Step 4: Install Python packages
 
-Install the necessary Python packages. This is how its done on the CHPC:
+Install the necessary Python packages. This is how it is done on the CHPC:
 
-Request an interactive job on the CHPC and ssh onto a node with internet access when the interactive job begins:
+Request an interactive job. When the interactive job begins, ssh onto a node with internet access:
 ```
 qsub -I -P CSCI1142 -q smp -l select=1:ncpus=24
 ssh username@chpclic1
@@ -237,7 +237,7 @@ Check that all packages were installed correctly and with the correct versions:
 pip list
 ```
 
-Exit the node with internet access and the interactive job:
+Exit both the internet access node and the interactive job:
 ```
 exit
 exit

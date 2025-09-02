@@ -200,23 +200,56 @@ python -c 'import pyroborobo'
 
 ### Step 4: Install Python packages
 
-Make sure the roborobo conda environment is activated and then install the 
-necessary Python packages as follows:
+Install the necessary Python packages. This is how its done on the CHPC:
 
+Request an interactive job on the CHPC and ssh onto a node with internet access when the interactive job begins:
 ```
-pip install deap
-pip install qdpy
-pip install torch
-pip install scikit-learn
-pip install seaborn
+qsub -I -P CSCI1142 -q smp -l select=1:ncpus=24
+ssh username@chpclic1
 ```
+
+Load the necessary modules and activate roborobo conda environment:
+```
+module purge
+module load chpc/BIOMODULES anaconda/3
+module load chpc/BIOMODULES roborobo4
+eval "$(conda shell.bash hook)"
+conda activate roborobo
+python -c 'import pyroborobo'
+```
+
+Install the necessary Python packages as follows:
+```
+pip install --user scipy==1.7.3
+pip install --user pandas==1.5.2
+pip install --user numpy==1.21.5
+pip install --user deap==1.3.3
+export SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL=True
+pip install --user qdpy==0.1.2.1
+pip install --user torch==1.12.1
+pip install --user scikit-learn==1.1.3
+pip install --user seaborn==0.12.2
+pip install --user matplotlib==3.6.2
+```
+
+Check that all packages were installed correctly and with the correct versions:
+```
+pip list
+```
+
+Exit the node with internet access and the interactive job:
+```
+exit
+exit
+```
+
 
 ### Step 5: Upload source code
 
 From a new terminal session (i.e. a session that is not logged into the cluster via SSH), upload the source code as follows:
 
 ```
-scp -r "/Users/user/Local/GitHub Projects/username/msc-project" username@lengau.chpc.ac.za:~/lustre/msc-project
+scp -r "/Users/user/Local/GitHub Projects/username/hons-project" username@lengau.chpc.ac.za:~/lustre/hons-project
 ```
 
 ### Step 6: Queue a simulation job

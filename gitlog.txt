@@ -1,0 +1,863 @@
+commit 4672855d7d7f2f231c52fd0ee5b43ef6286fbe44
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 09:02:05 2025 +0200
+
+    Cleaning code base
+
+commit 70331c35bd67a68772eaf9c84eff88eb13537a30
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 08:47:06 2025 +0200
+
+    Updated README.
+
+commit c9772a649b4289ac62bdd891dab7dcb967645212
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 08:43:00 2025 +0200
+
+    Updated README.
+
+commit b97c2c3655fea5693a572748ea9cd421c5b00a78
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 1 16:52:30 2025 +0200
+
+    Cleaning code base.
+
+commit 8f6811dd58e0f703d67b1656e0d2027a6e37715b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 1 09:38:29 2025 +0200
+
+    Cleaning code base.
+
+commit 22083a555d1922d75aac90da1634bff48f884534
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 1 09:27:55 2025 +0200
+
+    Cleaning up code base.
+
+commit 90c2383a3a30904584e25a44b36b0092e183e6f6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 24 12:00:19 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 46d4f57a103576a33ccae18b605a1b37c2cf598f
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 24 10:34:10 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit b5e9daad4f11e9403f53f25215e20713ead0dbe6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 23 12:12:29 2025 +0200
+
+    Text output files for jobs on HPC.
+
+commit 1858d495936ee8baecfe1a2efd79c9a9b05c560f
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 23 11:31:53 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit be80f04a7e2686d016b25f501b56568e5b1fe3ad
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 16:33:41 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 5101c9248aabe30e9ff4f696a784bcb36f348962
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 13:41:27 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 121f9ab55e69a554c4ba59d64afe380d527f24f9
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 11:21:21 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit ecff941c295ccdd0151352d1680c192eebd9abc0
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 11:18:05 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit b577c0b0dceb2d452ea0735e2bc92c6bc72b4af2
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 11:00:37 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 4d3d10c20bed058980130417d56fcabd4068abeb
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 10:01:30 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 2e7239757715b08b57191932ec106a8d5f6248bc
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 09:56:43 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 57d44ae199a45770438bb7b6dbeccf639a200a9c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 22 09:24:38 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 402f893a81f923032ae2ea7598abd0ebc4df4cab
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Aug 21 20:07:46 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 76872ce1283381903be8ce07db6ff7b2d59fa7ec
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Aug 21 11:16:58 2025 +0200
+
+    Output files for NSS-LC tests on HPC.
+
+commit 72adca26d1bc6d5238446927ac13107e0548d48c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Aug 21 10:59:55 2025 +0200
+
+    Solution archives for DNS and SSGA.
+
+commit e64544fd4c1a82e97e584c6ee575fd8239d4bac7
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Aug 21 07:31:54 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit 75cf1567ddb4bf83d4a34139b66b7d5344a197a4
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 19 22:48:11 2025 +0200
+
+    Finalized NSS-LC, and dynamic initialisation of novelty threshold and floor.
+
+commit caaab2487d0f48fce95d84b94ea255d4d55bd1d9
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 19 22:39:03 2025 +0200
+
+    Updated NSS-LC job scripts.
+
+commit cb2800f4893f5197450528127f3de51b79537339
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 19 12:28:57 2025 +0200
+
+    Output files for tests on HPC.
+
+commit ddbcf954deda94304f7b11752dc17cd6df226d3c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 19 08:37:10 2025 +0200
+
+    Output files for tests on HPC.
+
+commit b672a4a19777222a7ea941456e7a4aa2586296c7
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 18 23:03:01 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit 47110f926ca9f396ded3013dd8347565ad2a7a90
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 18 18:05:27 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit 4511e81a18e2da7abef46b587f77ad6493427f3d
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 18 16:49:05 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit b50cbd2f3027a438d9eefb7e265f6c6a2428d08a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 18 14:24:08 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit b7d289818dead282b75cf992e3afcd864123a61b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 18 08:57:25 2025 +0200
+
+    Output files for tests on HPC.
+
+commit 9a6716d154b1bde7a8b678e34090330d511efc58
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 18 07:45:09 2025 +0200
+
+    Output files for tests on HPC.
+
+commit 7e5bf35240fecfc4fc99af16b59eee4ae76f059e
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 17 15:49:50 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit bc21029a1c6a8ab540f74bd39b083f0ed5cddf29
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 17 14:14:16 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit f8d2b7154e33ed357d8e7bed4348eb1db8423251
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 18:13:22 2025 +0200
+
+    Output files for tests on HPC.
+
+commit c76eedf1cded08db8cb3f3710556b78f6c2b7dd6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 17:56:31 2025 +0200
+
+    Created more job scripts.
+
+commit 718d17e8778326828d48a82815043254511b1f3b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 17:53:58 2025 +0200
+
+    Fixed issue in NSS-LC algorithm.
+
+commit 0779f60e75f3482c81019eb65569ee8b59c3e02c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 14:59:22 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit a7562549f8f5475f0936d98580d74aaa5b98106d
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 13:42:29 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit e2272336cfb1120c40c0e640d1a4764d42c05401
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 13:17:56 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit 090da899ea4a6f771ef85ee775b4b74c03e87482
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 16 11:28:29 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit 389e344cfad1a945af6d46fe84f0bae5791e3b5c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 15 19:53:59 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit c9d6e5ef1184d1d2ac780145a0f018c092a71c7f
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 15 17:25:41 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit 3b14d6ff17b585926946ba16f1af95622c79f812
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 15 09:52:16 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit 541c91d776059628ed9e062d6d61ece1371cc570
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Aug 14 19:18:13 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit c418724a3010211355115b268decaf612a630b63
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Aug 14 13:42:48 2025 +0200
+
+    Output files for DNS tests on HPC.
+
+commit ba7b2bb234eca4c53bf6bf3e209f2a46d0542b09
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Aug 13 13:08:35 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit 678a96beeb2ce20f4a653f79247b9d24f06f39d3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 12 13:22:02 2025 +0200
+
+    Made DNS more efficient. Output files for SSGA tests on HPC.
+
+commit c7c7258ebb371121903e89b0a9eb4cb6fa317499
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 12 10:30:59 2025 +0200
+
+    Updated DNS and NSSLC job scripts.
+
+commit cc0245b2f77f2ab6deb4699c628069caa2edeaf3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 12 08:10:50 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit e03e13b123ce2f35ee07c28f58af249f6792d554
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 11 20:11:31 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit b9e19466620c07d65929d01828597819f061479f
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 10 19:43:25 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit fe14be4f290fa5b161e72eec77b3cb3216a3517b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 10 10:54:08 2025 +0200
+
+    Output files for SSGA tests on HPC.
+
+commit bcae934a824bc6a16d3aa531be01e8dc70225747
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 9 14:35:42 2025 +0200
+
+    Added method to get the number of CPUs allocated to the job. Added code so dynamic blocks are detected as walls for difficult level.
+
+commit 659be972771fb846ae8c72f752b6f8748a1265dd
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 9 14:01:20 2025 +0200
+
+    More output files for SSGA tests on HPC.
+
+commit 8cc9e1e65b1c514ff66e44eacc31f1817f763cc3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 8 18:34:58 2025 +0200
+
+    More output files for SSGA tests on HPC. Created more UCT HPC and CHPC job scripts.
+
+commit 2d48bc9d64102d589cafb5a47ccc524d7cedf14f
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 8 18:28:41 2025 +0200
+
+    Updated sheep sinkhole avoidance radius in all maze-medium configs.
+
+commit baf657ea3e180213764ebed7671b3ca22b622cdc
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 8 18:19:33 2025 +0200
+
+    More output files for SSGA tests on HPC.
+
+commit 249f3fef3dd5b7e9bc8e1970417d66bfd134651c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 8 09:39:11 2025 +0200
+
+    More output files for SSGA tests on HPC.
+
+commit 3a60755bbe740fd5a5ad582bd0699d9f43cbbdc8
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 8 09:31:28 2025 +0200
+
+    More output files for SSGA tests on HPC.
+
+commit 1f745f331d6d476e82b305519beabfc9f4d586eb
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 8 09:17:27 2025 +0200
+
+    Output files of SSGA tests on HPC.
+
+commit be91c2c61aa0b7983dcb676ca2a7fabd26bfdc3e
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Aug 6 19:48:19 2025 +0200
+
+    Added timeout_limit and kSS as arguments to NSS-LC.
+
+commit 50b7e3853f4c1a4ae708bede3c35f977a0f714a2
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Aug 6 19:41:51 2025 +0200
+
+    Almost finished cleaning up my NSS-LC algorithm code after my initial implementation.
+
+commit 8864a9cd498134d4a0134b53da42adffc789cf52
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Aug 6 19:35:58 2025 +0200
+
+    Created more SSGA UCT HPC job scripts.
+
+commit dd41c4ca8c045a6f105a1e985107613dd1828573
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 5 20:29:18 2025 +0200
+
+    Created UCT HPC job scripts.
+
+commit 3dfc53df84aa552b8f2a4d20ee722771848e55d7
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Aug 5 20:27:12 2025 +0200
+
+    Checkpoints for SSGA test on the CHPC.
+
+commit b942beb13e2141ad12e8cceead3f4f357eac4b82
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 4 15:30:11 2025 +0200
+
+    Moved SSGA checkpoint files.
+
+commit f3e456ae52f6d36a4bc574d7563240d0ee099728
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 4 15:28:05 2025 +0200
+
+    Updated SSGA job scripts.
+
+commit a8d7ce14b46453da78bb7b9e956b39762aa6a1f7
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 4 14:54:31 2025 +0200
+
+    Checkpoints for first SSGA test on the CHPC.
+
+commit 71e74f3905364812cfe8fc43742ea7e4908554f1
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 4 10:28:24 2025 +0200
+
+    Updated parameters in NSSLC configs.
+
+commit 9739c637092cb84269629bbacd4a275be7783a74
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 4 09:39:50 2025 +0200
+
+    Changed pEvaluationTrials from 5 to 3 in configs.
+
+commit 7b5116fcc27f734a8169810033742b0439961438
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Aug 4 07:49:21 2025 +0200
+
+    Results for first SSGA test on the CHPC.
+
+commit 81cc0c6e0c1caf25d1628d304c33d6d6f8cc8f56
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 3 13:08:24 2025 +0200
+
+    Moved example plots.
+
+commit 86dd219e3d003441f0bc49e501073a12e59606a9
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Aug 3 13:04:22 2025 +0200
+
+    Moved some config files.
+
+commit 625887338a68cd895e2e96dc9ced72a3299562ad
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 2 16:54:27 2025 +0200
+
+    Moved CHPC configs into a separate folder.
+
+commit 0002454d06c7fc1d64c0fd1b279b42302829513b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 2 15:38:49 2025 +0200
+
+    Moved the medium level job scripts.
+
+commit fe7140329cfed9948ee87c9b143a7f7a43d02e03
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Aug 2 13:10:42 2025 +0200
+
+    Updated configs for running on HPC.
+
+commit ceef2a7ece8f4284df424f81d7aaeb940a9b0481
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Aug 1 15:40:49 2025 +0200
+
+    Updated configs, setting pDynamicProgressOutput to false for HPC.
+
+commit 5b72cc25054a73cfe932dcb647a8c90b73418c63
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 31 14:41:48 2025 +0200
+
+    Updated SSGA dummy config.
+
+commit 3c530dafd2e1889d6ddb3a555047b374ba005b5b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 31 14:37:53 2025 +0200
+
+    Created SSGA testing job for HPC.
+
+commit 0053107d597391f6500d5c5bfb53e22734ada48a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 31 14:34:28 2025 +0200
+
+    Updated configs so that pEvaluationTrials = 5.
+
+commit 9cb0562f3a8e9cf7df2e799135842458cab74e4b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 19:56:01 2025 +0200
+
+    Updated run.py to incoporate DNS and NSS-LC.
+
+commit a4bbd8466b4881eb65482b711d3618cd39bea8ef
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 16:33:47 2025 +0200
+
+    Updated parameters in configs in preparation for running on HPC.
+
+commit 5dba728c1378ca270b0e495abeaa29e4abee4dfd
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 15:57:08 2025 +0200
+
+    Copied dummy configs into a new folder.
+
+commit 4e038c9164d5fd3ab6f666c778db6b6f4d0ab0bd
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 13:47:13 2025 +0200
+
+    Added refresh method to update target coords for easy level.
+
+commit cc0d104b4685559d5b116bd78f18b2553092f8b0
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 13:18:25 2025 +0200
+
+    Replaced manual distance calculation method with predefined method in Evaluator.
+
+commit 9b6ff40cb688e6a77bf0cfa49f463470afdf0007
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 11:23:11 2025 +0200
+
+    Added refresh method to update target zone coords for easy level in SwarmFitnessMonitor.
+
+commit 31c95fce6e12a215a5a13ae7d5649a63b442ee89
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 10:53:06 2025 +0200
+
+    Added refresh method to update target zone coords for easy level in DogController.
+
+commit 6d1c673a23feacaca496df26174a95a9dc31771a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 10:24:12 2025 +0200
+
+    Added refresh method to update target zone coords for easy level in BehaviourMonitor.
+
+commit f153652d50f6380d6267f3c590aaee99d55b9a67
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Jul 30 09:28:07 2025 +0200
+
+    Replaced manual distance calculation method with predefined method in BaseController.
+
+commit 953368b739db9aab144ac2196029fda831f2b9dc
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 29 21:22:18 2025 +0200
+
+    Created job scripts for the Difficult environment level.
+
+commit 6b6063dcd550ebc82906e065f03ebe5e1968836f
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 29 21:05:36 2025 +0200
+
+    Created job scripts for the Medium environment level.
+
+commit 3e7b51b7b6ad340e95c8da149a98517207050510
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 29 20:48:28 2025 +0200
+
+    Moved extra job scripts to different folders.
+
+commit b9493f73a31ab114b01425d7869a45e7e710d360
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Jul 28 17:58:38 2025 +0200
+
+    Updated sheep translation speed in DNS configs.
+
+commit 840efedcb9e33a3fb91bda3eee48447e15846247
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Jul 28 17:54:31 2025 +0200
+
+    Updated sheep translation speed in NSS-LC configs.
+
+commit ce64ccac5c65817c305e8a69310e7aa140c928d1
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Jul 28 17:51:04 2025 +0200
+
+    Updated sheep translation speed in SSGA configs.
+
+commit 2ac838f6de84d445326a18ef3acc2006df72f19c
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Jul 28 07:46:37 2025 +0200
+
+    Updated sinkhole code such that robots that are located in the area where a sinkhole is about to appear are moved.
+
+commit 36cc2d418a3015c993f5a6c1fceab07055eff823
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 18:29:31 2025 +0200
+
+    Created more NSS-LC job scripts.
+
+commit 0a607ea3911032d07f106dfc355d824caf5127c2
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 18:16:00 2025 +0200
+
+    Created more SSGA and DNS job scripts.
+
+commit f74dc900d6b1a065a5747ce71dd17706151f3c42
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 17:44:09 2025 +0200
+
+    Created NSS-LC job scripts.
+
+commit cbabd26f1b92368fdfca17e8903a8f3ec29d96ca
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 17:25:52 2025 +0200
+
+    Created SSGA job scripts.
+
+commit e7b694e617f4bd5efdfe4a53f7bb407f25f92943
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 17:13:57 2025 +0200
+
+    Created more DNS job scripts.
+
+commit c524d729e4c93e16043c90db3e68a0b9bee14bff
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 14:14:35 2025 +0200
+
+    Created first DNS job script.
+
+commit a01b8459cd9be8ab265d451e40dcc9d2fac66499
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 11:55:29 2025 +0200
+
+    Created additional SSGA configs for differing number of sheep and dogs.
+
+commit bba4aeb86bc0cf4bf290d9743f6ba4634a428f8d
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 11:28:10 2025 +0200
+
+    Created additional NSS-LC configs for differing number of sheep and dogs.
+
+commit 8f7db121fae97f24ef38add9cfcd9feb47ff721e
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 11:08:30 2025 +0200
+
+    Created additional DNS configs for differing number of sheep and dogs.
+
+commit 28ebf0073c8bacbf435419676e42e56cc64e8378
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 10:47:24 2025 +0200
+
+    Updated DNS configs naming
+
+commit f209a70fed9650ce881ca2e551ddf2b0202214b6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 27 10:45:18 2025 +0200
+
+    Updated DNS configs.
+
+commit 76ebe575c5b612f9fc32f78516fc34e586589b43
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Jul 26 09:31:59 2025 +0200
+
+    Updated DNS configs to include k value parameter.
+
+commit 15417eee4c7c2051cdb9c8f16081f3095a0e1c34
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 25 18:57:56 2025 +0200
+
+    Fixed an error with the calculation of total steps.
+
+commit 15e470465aa296f69d6b39015c7e1b0bb12de023
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 25 14:21:28 2025 +0200
+
+    Added the parameters for NSS-LC to the NSS-LC configs.
+
+commit 0d5cc7d8943be6100a14b5b33453ab0387f2730e
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 25 12:39:41 2025 +0200
+
+    Implemented dynamic fetching of target zone coordinates for Easy Level where needed.
+
+commit dff0042d61845abd4b47d28f13faf90603a9ccf3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 24 19:53:26 2025 +0200
+
+    Added functionality for the Easy Level to move sheep that are in the new target zone area right before the target zone moves.
+
+commit 7995943f9cacb117725ff74f2846c14a0251cec8
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 24 19:16:20 2025 +0200
+
+    Added functionality to prevent robots from spawning in sinkholes for the Medium Level.
+
+commit a6a5c5639c1793b55c68c24e163dbe001d4d67ed
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 24 17:58:25 2025 +0200
+
+    Renamed SSGA configs to indiciate the dog sheep ratio.
+
+commit d33350e66e0124daf3e438ef216deb03deb8728b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 24 17:55:27 2025 +0200
+
+    Made DNS code more efficient.
+
+commit a1c92b1c64ce25788c17d90395957aae2ccbe626
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 22 14:32:01 2025 +0200
+
+    Updated naming of NSS-LC configs and values for testing in SSGA and DNS configs.
+
+commit 00251d47c9beb337e3902caf962f809156ba0607
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 22 14:09:02 2025 +0200
+
+    Implemented Dominated Novelty Search selection function. Computes the dominated novelty score for each individual and returns the top individuals based on their score.
+
+commit 94b11daf5cd3f0253cd088fcad9e8205911819bc
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 22 09:52:10 2025 +0200
+
+    Added sinkhole detection and handling for dogs falling into sinkholes for Medium Level and dynamic target coordinate and distance calculation for Easy Level in DogController.
+
+commit 7ab9cfd5988e7469309a2d1fc2f33403136c9145
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 20 17:29:35 2025 +0200
+
+    Populated necessary config files for DNS and NSS-LC algorithms.
+
+commit 72ad7dd428cf078bb1feea0a15d9dfaef292295e
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 20 17:25:16 2025 +0200
+
+    Added robot removal when inside sinkhole and fixed step calculation in SinkholeObject.
+
+commit 351e14accafdb2b692a4b4f02b044bbe56fbcf1a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 20 15:56:30 2025 +0200
+
+    Added sinkhole detection and handling for sheep falling into sinkholes in SheepController.
+
+commit ff51da884ec16824ab459e26db81a236dce6e818
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 20 15:36:52 2025 +0200
+
+    Updated configs for testing and general improvements.
+
+commit 7c508fd47041401a0a4a23f7a9f2e904dbbe5dfa
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 18 14:53:47 2025 +0200
+
+    Updated configs for SSGA medium level and SSGA easy level.
+
+commit 8f50a65c1bc5d51dfbfad23edfd90a2d11cf3b1a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 18 14:40:18 2025 +0200
+
+    Added sinkhole object detection to RadarSensor.
+
+commit ed4eb5ec65d6513abe145956570ecf729e62ecfe
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 18 14:33:20 2025 +0200
+
+    Fixed formula error for calculating the number of time steps in Base Controller class.
+
+commit 5694d751d6d0b5fdb11862f621eeb45392a2cc80
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 18 14:27:58 2025 +0200
+
+    Updated comment in config files.
+
+commit cb13e8263091be212a693eac906350df3019748e
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Thu Jul 17 15:10:55 2025 +0200
+
+    Fixed formula error for calculating the number of time steps in the Block Object class.
+
+commit 20e99373b5c872edd986606297fcb7947eef9a41
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 15 09:00:54 2025 +0200
+
+    Updated simulation setup in globals.py to register SinkholeObject for the Medium Level and BlockObject for the Difficult Level.
+
+commit f84da5f3444dcfdbbb51c9d6d40a6813dae33622
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 15 08:35:02 2025 +0200
+
+    Updated a few parameters in SSGA Medium config.
+
+commit da62016925d7649f5e490dd3899d1798a4a2298b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 15 08:29:58 2025 +0200
+
+    Updated config for SSGA Difficult Level, adding necessary features to create dynamic blocks.
+
+commit 942cec3f13b96e528727adab1f2f9bd3690248c3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Jul 15 08:14:01 2025 +0200
+
+     Created dynamic block class for Difficult Level.
+
+commit 3b1e04d8d45477fba9c62c58967b729ed6d76d7b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 13 09:57:50 2025 +0200
+
+    Added functionality to enable updating the in-memory config with dynamic changes.
+
+commit 8440dd14c4b0cae1566bf26126d1db5f71b1fce5
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sun Jul 13 09:29:03 2025 +0200
+
+    Updated config for Medium Level, adding necessary features to create dynamic sinkholes.
+
+commit e0c1f516483e5f6cc15b8b6a2ec73977b89d12b2
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Jul 12 13:25:20 2025 +0200
+
+    Created Sinkhole class for Medium Level.
+
+commit 0946dd7c0deca1556b998d5d053b40354ee7e831
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Sat Jul 12 10:53:47 2025 +0200
+
+    Update config for ssga no maze level, changing values for testing as well as general additions where needed.
+
+commit 7b47a202e3c7e42d48bb10244cee7451f76e6b61
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 11 17:29:51 2025 +0200
+
+    Implemented the Easy Level (target zone switches to the opposite corner mid-simulation) in the BaseController class.
+
+commit 9afccee1529537aa9bf7e32bff1b70941c79c12b
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 11 16:35:19 2025 +0200
+
+    Deleted irrelevant results data generated during testing.
+
+commit a1e5378280b7a1686c7ce2793c8f0690d119c644
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 11 16:27:53 2025 +0200
+
+    Updated config for ssga easy level, changing values for testing as well as adding and updating where necessary to implement target zone switching.
+
+commit 69c4efce8b45542a5ffb08c17c4f543c74bd711a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 11 15:54:36 2025 +0200
+
+    Added level flags (easy, medium, difficult) to default config.
+
+commit 356b86f8098009bb550eb5f7d8e18b776fc020c8
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Jul 11 15:47:22 2025 +0200
+
+    Adapted the environment_easy image files for the target zone switching level (easy level) by adding and removing parts of the maze where needed.
+
+commit 3d1418b606a8f2625cdf98ed97c1382970bbc6b3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri May 23 09:32:16 2025 +0200
+
+    Started the implementation of nss-lc and dns.  Created the necessary config files.
+
+commit abde519e5fd0e470c40a69cd032d7ba1865c6c03
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue May 20 21:10:09 2025 +0200
+
+    Made changes to files (default.properties, shom-easy.properties) for testing purposes, so that I could successfully get the code running on my laptop.
+
+commit 1ba413b19792dd9ed819dc97cf0ab604d8cfe515
+Author: Emily Raine <rnxemi001@cs.uct.ac.za>
+Date:   Tue May 20 14:46:45 2025 +0200
+
+    Initial commit

@@ -12,20 +12,24 @@ def mean_flatten(array):
     output.append(stat.mean(array[i]))
   return output
 
-def graph(variant, runs=20, generations=200):
+def graph(variant, runs=20, generations=100):
 
   MAX_RUNS = runs
 
-  if variant == "hom":
-    AGGREGATE_PREFIXES = ["shom-e", "shom-m", "shom-d", "mhom-e", "mhom-m", "mhom-d"]
-  elif variant == "het":
-    AGGREGATE_PREFIXES = ["shet-e", "shet-m", "shet-d", "mhet-e", "mhet-m", "mhet-d"]
-  elif variant == "ahet":
-    AGGREGATE_PREFIXES = ["ashet-e", "ashet-m", "ashet-d", "amhet-e", "amhet-m", "amhet-d"]
+  if variant == "all-nm":
+    AGGREGATE_PREFIXES = ["dns-e-nm", "dns-d-nm", "nsslc-e-nm", "nsslc-d-nm", "ssga-e-nm", "ssga-d-nm"] 
+  elif variant == "all-e":
+    AGGREGATE_PREFIXES = ["dns-e-e", "dns-d-e", "nsslc-e-e", "nsslc-d-e", "ssga-e-e", "ssga-d-e"] 
+  elif variant == "all-m":
+    AGGREGATE_PREFIXES = ["dns-e-m", "dns-d-m", "nsslc-e-m", "nsslc-d-m", "ssga-e-m", "ssga-d-m"]
+  elif variant == "all-d":
+    AGGREGATE_PREFIXES = ["dns-e-d", "dns-d-d", "nsslc-e-d", "nsslc-d-d", "ssga-e-d", "ssga-d-d"]
 
   for prefix in AGGREGATE_PREFIXES:
-
+    folder_count = 0
     folders = [("output/" + folder) for folder in os.listdir("output") if folder.startswith("run_" + prefix)]
+    if not folders:
+      continue
 
     if len(folders) > MAX_RUNS:
       folders = folders[:MAX_RUNS]
@@ -33,7 +37,6 @@ def graph(variant, runs=20, generations=200):
     AGGREGATE_MEAN_ARRAY = None
     AGGREGATE_MAX_ARRAY = None
 
-    folder_count = 0
 
     for folder in folders:
       if os.path.exists(folder + "/checkpoints/gen_" + str(generations) + ".pkl"):
@@ -46,7 +49,7 @@ def graph(variant, runs=20, generations=200):
             AGGREGATE_MEAN_ARRAY.append([])
             AGGREGATE_MAX_ARRAY.append([])
           CHECKPOINT_FILENAME = folder + "/checkpoints/gen_" + str(i) + ".pkl"
-          if "shom" in folder or "shet" in folder:
+          if "ssga" in folder or "dns" in folder or "nsslc" in folder:
             with open(CHECKPOINT_FILENAME, "rb") as cp_file:
               CHECKPOINT = pickle.load(cp_file)
             POPULATION = CHECKPOINT["pop"]
@@ -88,14 +91,17 @@ def graph(variant, runs=20, generations=200):
     AGGREGATE_MEAN_ARRAY = mean_flatten(AGGREGATE_MEAN_ARRAY)   
     AGGREGATE_MAX_ARRAY = mean_flatten(AGGREGATE_MAX_ARRAY)
 
-    style = "-" if "sh" in prefix else "--"
-    
-    if "-e" in prefix:
-      color = "g"
-    elif "-m" in prefix:
-      color = "b"
-    elif "-d" in prefix:
-      color = "r"
+    parts = prefix.split('-')
+    dif_level = parts[1]
+    algorithm = parts[0]
+    style = "-" if dif_level == "d" else "--"
+
+    if algorithm == "dns":
+        color = "r"
+    elif algorithm == "ssga":
+        color = "b"
+    elif algorithm == "nsslc": 
+        color = "g"
 
     plt.figure(1)
     plt.plot(AGGREGATE_MEAN_ARRAY, label=prefix, c=color, ls=style)
@@ -105,22 +111,30 @@ def graph(variant, runs=20, generations=200):
 
     print("Results plotted for " + str(folder_count) + " run(s).")
 
-  title = "Homogeneous" if variant == "hom" else "Heterogeneous"
+  variant_parts = variant.split("-")
+  if variant_parts[1] == "nm":
+      title = "No Maze"
+  elif variant_parts[1] == "e":
+      title = "Easy Maze"
+  elif variant_parts[1] == "m": 
+      title = "Medium Maze"
+  elif variant_parts[1] == "d": 
+      title = "Difficult Maze"
 
   plt.figure(1)
   plt.suptitle(title, weight="bold")
-  plt.title("SSGA vs. MAP-Elites", fontsize=10)
   plt.xlabel("Generation")
   plt.ylabel("Average mean fitness")
-  plt.ylim(top=1.0)
+  plt.xlim(0, generations)
+  plt.ylim(bottom=0, top=0.5)
   plt.legend(loc="upper left")
   plt.savefig("output/fitness-mean-" + variant + ".png", bbox_inches='tight', pad_inches=0.2)
 
   plt.figure(2)
   plt.suptitle(title, weight="bold")
-  plt.title("SSGA vs. MAP-Elites", fontsize=10)
   plt.xlabel("Generation")
   plt.ylabel("Average max fitness")
-  plt.ylim(top=1.0)
+  plt.xlim(0, generations)
+  plt.ylim(bottom=0, top=1.0)
   plt.legend(loc="upper left")
   plt.savefig("output/fitness-max-" + variant + ".png", bbox_inches='tight', pad_inches=0.2)

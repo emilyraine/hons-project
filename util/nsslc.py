@@ -32,14 +32,13 @@ def nsslc_select(population, pop_size, lmbda, nLC, nNS, nSS, h, timeout_limit, k
         true_index = indiv_to_index[id(ind)]
         indexed_distances = [(j, math.dist(current_descriptor, desc_j)) for j, desc_j in enumerate(search_descriptors) if j != true_index]
 
-        # Calculate Novelty Score (eq 1) - compute novelty for each descriptor in current population
+        # Calculate Novelty Score
         k_ns = min(nNS, len(indexed_distances))
         distances_sorted = heapq.nsmallest(k_ns, (dist for j, dist in indexed_distances))
         novelty = np.mean(distances_sorted)
         novelty_scores.append(novelty)
 
-        # Add members to Novelty Archive A
-        # if individual has a novelty score above a fluctuating threshold then is added to novelty archive
+        # Individual added to novelty archive if its novelty score is above the novelty threshold
         if novelty_initialised:
             if novelty > novelty_threshold:
                 archive.append(ind)
@@ -57,17 +56,16 @@ def nsslc_select(population, pop_size, lmbda, nLC, nNS, nSS, h, timeout_limit, k
     if not novelty_initialised:
         initialise_novelty(novelty_scores, population)
 
-    # Calculate Surprise Score (eq 3)
-    # Update surprise model
+    # Calculate Surprise Scores and update the surprise model
     surprise_scores = update_surprise_model(population, h, kSS, nSS)
 
-    # Calculate Novelty-Surprise Score (eq 4)
+    # Calculate Novelty-Surprise Scores
     novelty_surprise_scores = [(lmbda*n + (1 - lmbda)*s) for n, s in zip(novelty_scores, surprise_scores)]
 
     # Select using NSGAII
     selected = select_nsga2(novelty_surprise_scores, local_competition_scores, pop_size, population)
     
-    # archive threshold is fluctuating
+    # adjust novelty threshold
     adjust_novelty_threshold(timeout_limit)
 
     return selected
@@ -82,11 +80,9 @@ def initialise_novelty(novelty_scores, population):
     for i in top_ten_indices:
         archive.append(population[i])
         add_queue.append(population[i])
-        print(f"Top 10 novelty scores in archive: {novelty_scores[i]}", file=sys.stderr)
     novelty_threshold = math.nextafter(top_ten, float("-inf")) 
     top_20 = sorted_novelty[19]
     novelty_floor = math.nextafter(top_20, float("-inf"))
-    print(f"Novelty floor: {novelty_floor:}", file=sys.stderr) 
     novelty_initialised = True
 
 
@@ -149,9 +145,7 @@ def adjust_novelty_threshold(timeout_limit):
     else:
         time_out = 0
 
-    print(f"incoming novelty threshold: {novelty_threshold}, individuals added this generation: {added}", file=sys.stderr)  
-
-    # Lower threshold if archive stagnant
+    # Lower threshold if archive growth stagnates
     if time_out >= timeout_limit:
         novelty_threshold = max(novelty_threshold * 0.95, novelty_floor)
         time_out = 0
@@ -159,7 +153,5 @@ def adjust_novelty_threshold(timeout_limit):
     # Raise threshold if too many additions
     if added > 4:
         novelty_threshold *= 1.2
-    
-    print(f"Current novelty threshold: {novelty_threshold}", file=sys.stderr)
 
     add_queue.clear()

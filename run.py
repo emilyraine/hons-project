@@ -267,7 +267,7 @@ if __name__ == "__main__":
       ind.fitness.values = fit[0]
       ind.features = fit[1]
 
-    # update the MAP-Elites grid or replace population with offspring
+    # update the population based on the chosen evolutionary algorithm
     if CONFIG.get("pEvolutionAlgorithm", "str").startswith("M"):
       mapelites.grid.update(offspring)
     elif chosen_algorithm.startswith("D"):

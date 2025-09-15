@@ -6,6 +6,7 @@ Code was modified and extended by Emily Raine.
 
 
 **References:**
+
 [1] Scott Hallauer, Geoff Nitschke, and Emma Hart. 2025. Evolving Behavior Allocations in Swarm-Robotic Collective Behavior Evolution. In Proceedings of the IEEE Congress on Evolutionary Computation (CEC). IEEE.
 
 
@@ -267,5 +268,5 @@ After having defined the necessary job script (see under `jobs/` for examples), 
 Make sure you are SSH'ed into the cluster enviroment and located at the root directory of this repository, then run the following command if in PBS:
 
 ```
-qsub jobs/default.job 
+qsub jobs/default.job
 ```

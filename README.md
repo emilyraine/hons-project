@@ -1,9 +1,9 @@
 # SheepDogAI - Evolutionary Robotics Herding Simulator
-**Note:** I (Emily Raine) modified and extended code originally developed by Hallauer et al. [1] to include three new dynamic maze environments and two hybrid evolutionary algorithms, Dominated Novelty Search (DNS) [2] and Novelty-Surprise Search with Local Competition (NSS-LC). [3]. 
+**Note:** I (Emily Raine) modified and extended code originally developed by Hallauer et al. [1] to include three new dynamic maze environments and two hybrid evolutionary algorithms, Dominated Novelty Search (DNS) [2] and Novelty-Surprise Search with Local Competition (NSS-LC) [3]. 
 
 As described in my final paper: Experiments evaluated the two hybrid evolutionary algorithms (DNS and NSS-LC), against each other and the exploitation-only SSGA on the baseline No Maze environment and the three new dynamic maze environments, Easy Maze (Target zone switching), Medium Maze (Dynamic sinkholes), Difficult Maze (Dynamic blocks). The sheep-herding task was varied both according to task environment and task difficulty, where the Easy level had a dog:sheep ratio of 20:10 and the Difficult level had a dog:sheep ration of 10:20. Each experiment used one of the three behaviour evolution methods (DNS, NSS-LC and SSGA) to evolve the dog controllers for a given environment and task difficulty level.  
 
-My result files are in the *output* folder. The output files for each run (100 generations) is stored in a folder named using the format: run_{*Algorithm*}-{*Task difficulty*}-{*Task environment*}-{*Run number*}.  
+My result files are in the *output* folder. The output files for each run (100 generations) are stored in a folder named using the format: run_{*Algorithm*}-{*Task difficulty*}-{*Task environment*}-{*Run number*}.  
 Algorithm: *dns* (Dominated Novelty Search), *nsslc* (Novelty-Surprise Search with Local Competition) and *ssga* (Steady-State Genetic Algorithm).   
 Task difficulty: *e* (easy) or *d* (difficult).  
 Task environments: *nm* (No Maze), *e* (Easy Maze), *m* (Medium Maze), *d* (Difficult Maze).  
@@ -273,5 +273,5 @@ After having defined the necessary job script (see under `jobs/` for examples), 
 Make sure you are SSH'ed into the cluster enviroment and located at the root directory of this repository, then run the following command if in PBS:
 
 ```
-qsub jobs/default.job 
+qsub jobs/default.job
 ```

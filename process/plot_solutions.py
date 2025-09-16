@@ -13,20 +13,25 @@ def mean_flatten(array):
     output.append(stat.mean(array[i]))
   return output
 
-def graph(variant, runs=20, generations=200):
-
+def graph(variant, runs=20, generations=100):
+  MAX_ARCHIVESIZE = 63.85
   MAX_RUNS = runs
 
-  if variant == "hom":
-    AGGREGATE_PREFIXES = ["shom-e", "shom-m", "shom-d", "mhom-e", "mhom-m", "mhom-d"]
-  elif variant == "het":
-    AGGREGATE_PREFIXES = ["shet-e", "shet-m", "shet-d", "mhet-e", "mhet-m", "mhet-d"]
-  elif variant == "ahet":
-    AGGREGATE_PREFIXES = ["ashet-e", "ashet-m", "ashet-d", "amhet-e", "amhet-m", "amhet-d"]
+  if variant == "all-nm":
+    AGGREGATE_PREFIXES = ["dns-e-nm", "dns-d-nm", "nsslc-e-nm", "nsslc-d-nm", "ssga-e-nm", "ssga-d-nm"]
+  elif variant == "all-e":
+    AGGREGATE_PREFIXES = ["dns-e-e", "dns-d-e", "nsslc-e-e", "nsslc-d-e", "ssga-e-e", "ssga-d-e"] 
+  elif variant == "all-m":
+    AGGREGATE_PREFIXES = ["dns-e-m", "dns-d-m", "nsslc-e-m", "nsslc-d-m", "ssga-e-m", "ssga-d-m"]
+  elif variant == "all-d":
+    AGGREGATE_PREFIXES = ["dns-e-d", "dns-d-d", "nsslc-e-d", "nsslc-d-d", "ssga-e-d", "ssga-d-d"]
 
   for prefix in AGGREGATE_PREFIXES:
 
     folders = [("output/" + folder) for folder in os.listdir("output") if folder.startswith("run_" + prefix)]
+
+    if not folders:
+      continue
 
     if len(folders) > MAX_RUNS:
       folders = folders[:MAX_RUNS]
@@ -44,7 +49,7 @@ def graph(variant, runs=20, generations=200):
           if flag:
             AGGREGATE_ARRAY.append([])
           CHECKPOINT_FILENAME = folder + "/checkpoints/gen_" + str(i) + ".pkl"
-          if "shom" in folder or "shet" in folder:
+          if  "ssga" in folder or "dns" in folder or "nsslc" in folder:
             grid = prja.project(CHECKPOINT_FILENAME)
             fitness_grid = grid.quality_array
           else:
@@ -67,25 +72,40 @@ def graph(variant, runs=20, generations=200):
         print("Skipping run: " + (folder + "/checkpoints/gen_" + str(generations) + ".pkl") + " is missing.")
 
     AGGREGATE_ARRAY = mean_flatten(AGGREGATE_ARRAY)
+    AGGREGATE_ARRAY = [val / MAX_ARCHIVESIZE for val in AGGREGATE_ARRAY]
+    parts = prefix.split('-')
+    dif_level = parts[1]
+    algorithm = parts[0]
+    style = "-" if dif_level == "d" else "--"
 
-    style = "-" if "sh" in prefix else "--"
-    
-    if "-e" in prefix:
-      color = "g"
-    elif "-m" in prefix:
-      color = "b"
-    elif "-d" in prefix:
-      color = "r"
+    if algorithm == "dns":
+        color = "r"
+    elif algorithm == "ssga":
+        color = "b"
+    elif algorithm == "nsslc": 
+        color = "g"
 
     plt.plot(AGGREGATE_ARRAY, label=prefix, c=color, ls=style)
 
     print("Results plotted for " + str(folder_count) + " run(s).")
 
-  title = "Homogeneous" if variant == "hom" else "Heterogeneous"
+  variant_parts = variant.split("-")
+  if variant_parts[1] == "nm":
+      title = "No Maze"
+  elif variant_parts[1] == "e":
+      title = "Easy Maze"
+  elif variant_parts[1] == "m": 
+      title = "Medium Maze"
+  elif variant_parts[1] == "d": 
+      title = "Difficult Maze"
 
-  plt.suptitle(title, weight="bold")
-  plt.title("SSGA vs. MAP-Elites", fontsize=10)
-  plt.xlabel("Generation")
-  plt.ylabel("Average archive size")
-  plt.legend(loc="upper left")
+  plt.gcf().subplots_adjust(top=0.92)
+  plt.suptitle(title, fontsize=18, weight="bold", y=0.98)
+  plt.xlabel("Generation", fontsize=14)
+  plt.ylabel("Average archive size (normalised)", fontsize=14)
+  plt.xlim(0, generations)
+  plt.ylim(0, 1)
+  plt.xticks(fontsize=14)
+  plt.yticks(fontsize=14)  
+  plt.legend(loc="upper left", fontsize=10)
   plt.savefig("output/solutions-" + variant + ".png", bbox_inches='tight', pad_inches=0.2)

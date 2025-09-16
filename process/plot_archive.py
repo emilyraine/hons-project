@@ -16,7 +16,7 @@ def max_flatten(grid, axis):
     output.append([c[0] for c in plane[r].tolist()])
   return output
 
-def graph(prefix, runs=20, generations=200):
+def graph(prefix, runs=20, generations=100):
 
   MAX_RUNS = runs
   AGGREGATE_PREFIX = prefix
@@ -34,7 +34,7 @@ def graph(prefix, runs=20, generations=200):
     CHECKPOINT_FILENAME = folder + "/checkpoints/gen_" + str(generations) + ".pkl"
     if os.path.exists(CHECKPOINT_FILENAME):
       count += 1
-      if "shom" in folder or "shet" in folder or "amhet" in folder:
+      if "ssga" in folder or "dns" in folder or "nsslc" in folder:
         grid = prja.project(CHECKPOINT_FILENAME)
         fitness_grid = grid.quality_array
       else: 
@@ -66,16 +66,18 @@ def graph(prefix, runs=20, generations=200):
   plane_labels = [["Dog-Sheep Distance", "Dog-Dog Distance"], ["Dog-Sheep Distance", "Dog-Pen Distance"], ["Dog-Dog Distance", "Dog-Pen Distance"]]
 
   fig, axs = plt.subplots(ncols=4, gridspec_kw=dict(width_ratios=[4,4,4,0.2]), figsize=(15, 4.2))
-  plt.suptitle(AGGREGATE_PREFIX, weight="bold")
+  plt.suptitle(AGGREGATE_PREFIX, fontsize=23, weight="bold")
   for i in range(len(plane_name)):
     plane = max_flatten(AGGREGATE_ARCHIVE, i)
     grid = sns.heatmap(plane, cmap="plasma", cbar=False, ax=axs[i], xticklabels=False, yticklabels=False, linewidths=0.5, linecolor="black", vmin=0.0, vmax=1.0)
     grid.invert_yaxis()
-    grid.set(xlabel=plane_labels[i][0], ylabel=plane_labels[i][1])
+    grid.set_xlabel(plane_labels[i][0], fontsize=14)
+    grid.set_ylabel(plane_labels[i][1], fontsize=14)
     # fix cut off lines
     grid.set_xlim(-0.1, 9.1)
     grid.set_ylim(-0.1, 9.1)
-  fig.colorbar(axs[-2].collections[0], cax=axs[-1], label="Fitness")
+  colour_bar= fig.colorbar(axs[-2].collections[0], cax=axs[-1])
+  colour_bar.set_label("Fitness", fontsize=14)
   plt.savefig("output/archive_" + AGGREGATE_PREFIX + ".png", bbox_inches='tight', pad_inches=0.2)
 
   print("Results plotted for " + str(count) + " run(s).")

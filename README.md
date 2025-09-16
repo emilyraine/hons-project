@@ -1,10 +1,11 @@
 # SheepDogAI - Evolutionary Robotics Herding Simulator
-**Note:** This project modifies and extends code originally developed by Hallauer et al.[1].  
-Source: https://anonymous.4open.science/r/cec25-sheepdogai/README.md  
+**Note:** This project modifies and extends code originally developed by Hallauer et al. [1] to include three new dynamic maze environments and two hybrid evolutionary algorithms, DNS [2] and NSS-LC [3].  
 Code was modified and extended by Emily Raine.  
 
 **References:**  
 [1] Scott Hallauer, Geoff Nitschke, and Emma Hart. 2025. Evolving Behavior Allocations in Swarm-Robotic Collective Behavior Evolution. In Proceedings of the IEEE Congress on Evolutionary Computation (CEC). IEEE.  
+[2] Ryan Bahlous-Boldi et al. 2025. Dominated Novelty Search: Rethinking Local Competition in Quality-Diversity. arXiv:2502.00593 [cs.NE] https://arxiv.org/abs/2502.00593  
+[3] Daniele Gravina, Antonios Liapis, and Georgios Yannakakis. 2019. Quality Diversity Through Surprise. IEEE Transactions on Evolutionary Computation 23, 4(Aug 2019), 603–616. https://doi.org/10.1109/TEVC.2018.2877215  
 
 
 ## Development Environment
@@ -265,5 +266,5 @@ After having defined the necessary job script (see under `jobs/` for examples), 
 Make sure you are SSH'ed into the cluster enviroment and located at the root directory of this repository, then run the following command if in PBS:
 
 ```
-qsub jobs/default.job 
+qsub jobs/default.job
 ```

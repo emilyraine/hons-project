@@ -1,4 +1,4 @@
-#Ignore Pythonv irtual environment
+#Ignore Python virtual environment
 venv/
 
 # Bytecode

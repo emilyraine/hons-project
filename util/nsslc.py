@@ -6,6 +6,8 @@ from deap import creator, tools
 import heapq
 import sys
 
+# Novelty-Surprise Search with Local Competition
+
 archive = [] 
 history = []
 novelty_initialised = False
@@ -52,7 +54,7 @@ def nsslc_select(population, pop_size, lmbda, nLC, nNS, nSS, h, timeout_limit, k
 
         local_competition_scores.append(lc_score)
     
-    # Generation 1: initialise Novelty Threshold and Novelty Floor
+    # Generation 1: initialise novelty threshold and novelty floor
     if not novelty_initialised:
         initialise_novelty(novelty_scores, population)
 

@@ -7,7 +7,7 @@ My result files are in the *output* folder. The output files for each run (100 g
 Algorithm: *dns* (Dominated Novelty Search), *nsslc* (Novelty-Surprise Search with Local Competition) and *ssga* (Steady-State Genetic Algorithm).   
 Task difficulty: *e* (easy) or *d* (difficult).  
 Task environments: *nm* (No Maze), *e* (Easy Maze), *m* (Medium Maze), *d* (Difficult Maze).  
-Run number: 01 - 20 (20 repetitions of each experiment were performed).  
+Run number: *01* - *20* (20 repetitions of each experiment were performed).  
 
 **References:**  
 [1] Scott Hallauer, Geoff Nitschke, and Emma Hart. 2025. Evolving Behavior Allocations in Swarm-Robotic Collective Behavior Evolution. In Proceedings of the IEEE Congress on Evolutionary Computation (CEC). IEEE.  

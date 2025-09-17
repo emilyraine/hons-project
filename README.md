@@ -1,5 +1,6 @@
 # SheepDogAI - Evolutionary Robotics Herding Simulator
-**Note:** I (Emily Raine) modified and extended code originally developed by Hallauer et al. [1] to include three new dynamic maze environments and two hybrid evolutionary algorithms, Dominated Novelty Search (DNS) [2] and Novelty-Surprise Search with Local Competition (NSS-LC) [3], as well as the necessary files to run my experiments.
+**Note:** I (Emily Raine) modified and extended code originally developed by Hallauer et al. [1] to include three new dynamic maze environments and two hybrid evolutionary algorithms, Dominated Novelty Search (DNS) [2] and Novelty-Surprise Search with Local Competition (NSS-LC) [3], as well as the necessary files to run my experiments.  
+Github: https://github.com/emilyraine/hons-project/tree/emily-code-extension
 
 As described in my final paper: Experiments evaluated the two hybrid evolutionary algorithms (DNS and NSS-LC), against each other and the exploitation-only SSGA on the baseline No Maze environment and the three new dynamic maze environments, Easy Maze (Target zone switching), Medium Maze (Dynamic sinkholes), Difficult Maze (Dynamic blocks). The sheep-herding task was varied both according to task environment and task difficulty, where the Easy level had a dog:sheep ratio of 20:10 and the Difficult level had a dog:sheep ration of 10:20. Each experiment used one of the three behaviour evolution methods (DNS, NSS-LC and SSGA) to evolve the dog controllers for a given environment and task difficulty level.  
 

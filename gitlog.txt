@@ -1,3 +1,165 @@
+commit 353073c065b45e7834b53e0d001622b38772f8c2
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Sep 17 18:02:29 2025 +0200
+
+    Updated README.
+
+commit 21f4fedddae7042032f18d5ed4672396fc6c9707
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Sep 17 17:27:13 2025 +0200
+
+    Updated README.
+
+commit 17581846e036b2a87ea3d221c573b5d9060ba359
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Sep 17 17:22:24 2025 +0200
+
+    Added comment.
+
+commit ecd12eb344c336f5bbe26079ba9a61c3120803b9
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Sep 17 17:21:34 2025 +0200
+
+    Cleaned codebase.
+
+commit 7cb4f8f5568e9431c8297c794e94c7a23059ea1a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Sep 17 16:24:50 2025 +0200
+
+    Cleaned codebase.
+
+commit e432b38499bc5e0a5cf4ee05a1b672149871e8a8
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Wed Sep 17 13:26:30 2025 +0200
+
+    Updated README.
+
+commit 21f96d1f811d195d9005f46f387b0adf514e7303
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 16 21:44:56 2025 +0200
+
+    Fixed punctuation error in README.
+
+commit 69fc2cfe666592dc645a5089a862b784dc98f0d5
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 16 21:38:38 2025 +0200
+
+    Updated README.
+
+commit 4bdc3cec18a9c86bb46c81dbe19637c154fe9f81
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 16 21:18:18 2025 +0200
+
+    Updated figure plotting code.
+
+commit c6badd0e1047d20f6b1708851e4dd71b78ea643d
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 16 08:57:46 2025 +0200
+
+    Added dynamic environment flags (all set to false) to original Hallauer config files, to preserve their original behaviour.
+
+commit 98336342f1f10b12a92d7d3c2899a1451bc75fc3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 16 07:47:28 2025 +0200
+
+    Updated README.
+
+commit fc94fa386b86774bc7e1601a1ab2db8149c27981
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 18:32:05 2025 +0200
+
+    Updated README formatting.
+
+commit cc4f92396dc8bb7760026fd67b8848fdc6905bb6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 18:27:12 2025 +0200
+
+    Updated README formatting.
+
+commit 76f7b3cdf2131e669df92790b7c2d540ff41d0e6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 18:25:53 2025 +0200
+
+    Updated formatting in README.
+
+commit e5774c699724c0e4a95728c9d85fa865945a981a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 18:24:57 2025 +0200
+
+    Updated formatting in README.
+
+commit 7f6de89257564f91dc7f349d6c594bfd6c1fa6c6
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 18:22:53 2025 +0200
+
+    Updated README to include acknowledgement.
+
+commit 6f467ea58689dd6c185306f924ba56f4a8dba964
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 16:29:51 2025 +0200
+
+    Updated comment.
+
+commit 74d8632035b0fc0f5c6b105180fbc8ad0c327822
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 15:44:41 2025 +0200
+
+    Created final paper figures folder and renamed final figures.
+
+commit 5f8f6b6ab22186448e9d58306ef5e5cd4bf1d223
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 15:34:21 2025 +0200
+
+    Final fitness figures.
+
+commit f79e182a437689f8876161262895b4b9dbe18b2d
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 15:21:30 2025 +0200
+
+    Final Archive size figures.
+
+commit 6d14b0559d01be1e5082445d2797f830bce36a36
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 14:31:43 2025 +0200
+
+    Final QD Score figures.
+
+commit 83959cc179dd21ef588e9c28f023daf8fbb800e3
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Mon Sep 15 14:06:17 2025 +0200
+
+    Final solution archive figures.
+
+commit 883ef8699bd7ff9705d7cc579a328d281c5c790a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Fri Sep 12 07:24:15 2025 +0200
+
+    Final figures.
+
+commit b7e7d3b0e8e17933f3a9151c46055af8136d050a
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 14:26:55 2025 +0200
+
+    Made comments clearer in NSS-LC code.
+
+commit 6ba1c75316ef6b917c0e5326c174cd77678add27
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 14:12:43 2025 +0200
+
+    Updated ttest code and fitness plotting code.
+
+commit 2c0bf4945f2350a140b1b6c78179555a9ba789ff
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 13:42:17 2025 +0200
+
+    Saved figures.
+
+commit 5a94d71983883a8d0758202175acf283af353db4
+Author: Emily Raine <ememraine@gmail.com>
+Date:   Tue Sep 2 13:23:20 2025 +0200
+
+    Saved gitlog and cleaned code base.
+
 commit 4672855d7d7f2f231c52fd0ee5b43ef6286fbe44
 Author: Emily Raine <ememraine@gmail.com>
 Date:   Tue Sep 2 09:02:05 2025 +0200

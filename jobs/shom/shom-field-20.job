@@ -29,4 +29,10 @@ SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-fi
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20_4
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20_5
 
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -r output/run_field-20_11/checkpoints/gen_76.pkl
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20_12
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20_13
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20_14
+SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python run.py -s config/shom/shom-field-20.properties field-20_15
+
 conda deactivate

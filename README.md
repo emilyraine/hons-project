@@ -1,4 +1,7 @@
 # SheepDogAI - Evolutionary Robotics Herding Simulator
+# HOAMAS honours project extension
+
+This branch extends the code base to introduce 4 new evironments for dogs with fixed morphology.
 
 ## Development Environment
 

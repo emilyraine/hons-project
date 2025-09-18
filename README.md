@@ -5,7 +5,7 @@ This fork includes two primary extensions for the honours project:
 - changes to the dog controller, fitness functions and evaluator to introduce evolving morphologies
 - introduction of 4 new environments: namely ice, mud, ice-mud (high coverage) and ice-mud(low coverage)
 
-
+The naheed-fixedMorph branch contains the code dog agents with fixed morphology and the new environments.
 
 
 ## Development Environment
